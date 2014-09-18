@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+	[self.signInBtn.layer setBorderColor:[[UIColor blackColor] CGColor]];
+	[self.signInBtn.layer setBorderWidth:1.0f];
+	
 }
 
 - (void)didReceiveMemoryWarning {

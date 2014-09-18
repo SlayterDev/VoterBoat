@@ -14,6 +14,7 @@
 		02137C7719CB32B600F3A61F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02137C7619CB32B600F3A61F /* Images.xcassets */; };
 		02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02137C7819CB32B600F3A61F /* LaunchScreen.xib */; };
 		02137C8619CB32B600F3A61F /* VoterBoatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02137C8519CB32B600F3A61F /* VoterBoatTests.m */; };
+		02137C9019CB36FC00F3A61F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02137C8F19CB36FC00F3A61F /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		02137C7F19CB32B600F3A61F /* VoterBoatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoterBoatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		02137C8419CB32B600F3A61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02137C8519CB32B600F3A61F /* VoterBoatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoterBoatTests.m; sourceTree = "<group>"; };
+		02137C8F19CB36FC00F3A61F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02137C9019CB36FC00F3A61F /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +66,7 @@
 		02137C5D19CB32B600F3A61F = {
 			isa = PBXGroup;
 			children = (
+				02137C8F19CB36FC00F3A61F /* QuartzCore.framework */,
 				02137C6819CB32B600F3A61F /* VoterBoat */,
 				02137C8219CB32B600F3A61F /* VoterBoatTests */,
 				02137C6719CB32B600F3A61F /* Products */,
