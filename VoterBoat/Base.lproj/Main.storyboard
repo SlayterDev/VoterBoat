@@ -3,6 +3,11 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Pacifico.ttf">
+            <string>Pacifico-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -16,9 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1289493_21101753.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="3V0-ey-fVh">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLb-4f-G2h">
                                 <rect key="frame" x="161" y="266" width="278" height="68"/>
-                                <color key="backgroundColor" red="0.15294117647058825" green="0.68235294117647061" blue="0.37647058823529411" alpha="0.92000000000000004" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.15294117647058825" green="0.68235294117647061" blue="0.37647058823529411" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="SGw-wP-dXt"/>
                                 </constraints>
@@ -27,27 +35,51 @@
                                 <state key="normal" title="Create Account">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="goToLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zl2-mU-5WC"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sjK-bA-dVr">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sjK-bA-dVr">
                                 <rect key="frame" x="161" y="371" width="278" height="68"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="0.83000000000000007" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="WvO-Zh-iEg"/>
                                     <constraint firstAttribute="width" constant="278" id="gQP-Gn-tER"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Sign In">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="goToLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xgt-8Z-kcf"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VoterBoat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MK0-Hi-Mfw">
+                                <rect key="frame" x="133" y="76" width="335" height="110"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="335" id="HPY-6I-pxG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Pacifico-Regular" family="Pacifico" pointSize="70"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="MK0-Hi-Mfw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="56" id="AU9-p0-AvN"/>
+                            <constraint firstItem="3V0-ey-fVh" firstAttribute="leading" secondItem="y3c-jy-aDJ" secondAttribute="leading" id="Crc-ZC-0su"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="sjK-bA-dVr" secondAttribute="bottom" priority="250" constant="161" id="HzV-58-OHG"/>
                             <constraint firstItem="gLb-4f-G2h" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="246" id="LeX-zX-Nux"/>
+                            <constraint firstItem="3V0-ey-fVh" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="W4S-ie-Gne"/>
+                            <constraint firstItem="3V0-ey-fVh" firstAttribute="trailing" secondItem="wfy-db-euE" secondAttribute="trailing" id="a4K-Ri-4wb"/>
                             <constraint firstItem="sjK-bA-dVr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bXL-AK-CcY"/>
                             <constraint firstItem="sjK-bA-dVr" firstAttribute="top" secondItem="gLb-4f-G2h" secondAttribute="bottom" constant="37" id="e5s-QM-Tig"/>
                             <constraint firstItem="gLb-4f-G2h" firstAttribute="leading" secondItem="sjK-bA-dVr" secondAttribute="leading" id="emF-e6-oz4"/>
+                            <constraint firstItem="gLb-4f-G2h" firstAttribute="top" secondItem="MK0-Hi-Mfw" secondAttribute="bottom" constant="80" id="i5D-jR-Jrb"/>
                             <constraint firstItem="sjK-bA-dVr" firstAttribute="centerX" secondItem="gLb-4f-G2h" secondAttribute="centerX" id="mdo-GK-WhX"/>
+                            <constraint firstItem="3V0-ey-fVh" firstAttribute="centerY" secondItem="gLb-4f-G2h" secondAttribute="centerY" id="rMI-in-l21"/>
+                            <constraint firstItem="MK0-Hi-Mfw" firstAttribute="centerX" secondItem="gLb-4f-G2h" secondAttribute="centerX" id="ubf-Rn-PhV"/>
                         </constraints>
                     </view>
                     <connections>
@@ -58,4 +90,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="1289493_21101753.jpg" width="1600" height="1200"/>
+    </resources>
 </document>
