@@ -23,6 +23,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItemx
 	
+	fields = [NSMutableArray array];
+	
 	[self.tableView setContentInset:UIEdgeInsetsMake(125, 0, 0, 0)];
 	[self.tableView setBackgroundView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"1289493_21101753.jpg"]]];
 	
@@ -87,6 +89,9 @@
 		default:
 			break;
 	}
+	tf.tag = indexPath.row;
+	[fields insertObject:tf atIndex:indexPath.row];
+	[tf addTarget:self action:@selector(goToNextField:) forControlEvents:UIControlEventEditingDidEndOnExit];
 	
 	[cell addSubview:tf];
 	
@@ -106,6 +111,39 @@
 		tf.keyboardType = UIKeyboardTypeNumberPad;
 	
 	return tf;
+}
+
+-(void) goToNextField:(id)sender {
+	NSLog(@"Go to next");
+	UITextField *tf = (UITextField *)sender;
+	int newTag = (int)tf.tag ***REMOVED*** 1;
+	
+	if (newTag < fields.count) {
+		UITextField *newTf = [fields objectAtIndex:newTag];
+		[newTf becomeFirstResponder];
+	} else {
+		if ([self checkPasswords]) {
+			[[[UIAlertView alloc] initWithTitle:@"Welcome" message:@"You have \"signed up\"" delegate:nil cancelButtonTitle:@"Yay?" otherButtonTitles:nil] show];
+		} else {
+			[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Your password does not match the confirm field" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+			UITextField *pass = [fields objectAtIndex:3];
+			[pass becomeFirstResponder];
+		}
+	}
+}
+
+-(BOOL) checkPasswords {
+	if (!_signup) {
+		UITextField *pass1 = [fields objectAtIndex:3];
+		UITextField *pass2 = [fields objectAtIndex:4];
+		
+		if ([pass1.text isEqualToString:pass2.text])
+			return YES;
+		else
+			return NO;
+	}
+	
+	return YES;
 }
 
 /*

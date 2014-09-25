@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginSignupController : UITableViewController
+@interface LoginSignupController : UITableViewController {
+	NSMutableArray *fields;
+}
 
 @property (assign, nonatomic) BOOL signup;
 
