@@ -7,10 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoginSignupController.h"
 
 @interface ViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UIButton *signInBtn;
+
+
+- (IBAction)goToLogin:(id)sender;
 
 @end
 

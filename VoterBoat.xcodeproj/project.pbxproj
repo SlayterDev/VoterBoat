@@ -15,6 +15,9 @@
 		02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02137C7819CB32B600F3A61F /* LaunchScreen.xib */; };
 		02137C8619CB32B600F3A61F /* VoterBoatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02137C8519CB32B600F3A61F /* VoterBoatTests.m */; };
 		02137C9019CB36FC00F3A61F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02137C8F19CB36FC00F3A61F /* QuartzCore.framework */; };
+		029DBC1219D465AB008844E4 /* LoginSignupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029DBC1119D465AB008844E4 /* LoginSignupController.m */; };
+		029DBC1419D46D8E008844E4 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 029DBC1319D46D8E008844E4 /* Pacifico.ttf */; };
+		02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,10 @@
 		02137C8419CB32B600F3A61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02137C8519CB32B600F3A61F /* VoterBoatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoterBoatTests.m; sourceTree = "<group>"; };
 		02137C8F19CB36FC00F3A61F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		029DBC1019D465AB008844E4 /* LoginSignupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSignupController.h; sourceTree = "<group>"; };
+		029DBC1119D465AB008844E4 /* LoginSignupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSignupController.m; sourceTree = "<group>"; };
+		029DBC1319D46D8E008844E4 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
+		02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1289493_21101753.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +92,14 @@
 		02137C6819CB32B600F3A61F /* VoterBoat */ = {
 			isa = PBXGroup;
 			children = (
+				029DBC1319D46D8E008844E4 /* Pacifico.ttf */,
+				02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */,
 				02137C6D19CB32B600F3A61F /* AppDelegate.h */,
 				02137C6E19CB32B600F3A61F /* AppDelegate.m */,
 				02137C7019CB32B600F3A61F /* ViewController.h */,
 				02137C7119CB32B600F3A61F /* ViewController.m */,
+				029DBC1019D465AB008844E4 /* LoginSignupController.h */,
+				029DBC1119D465AB008844E4 /* LoginSignupController.m */,
 				02137C7319CB32B600F3A61F /* Main.storyboard */,
 				02137C7619CB32B600F3A61F /* Images.xcassets */,
 				02137C7819CB32B600F3A61F /* LaunchScreen.xib */,
@@ -203,7 +214,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				02137C7519CB32B600F3A61F /* Main.storyboard in Resources */,
+				029DBC1419D46D8E008844E4 /* Pacifico.ttf in Resources */,
 				02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */,
+				02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */,
 				02137C7719CB32B600F3A61F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02137C7219CB32B600F3A61F /* ViewController.m in Sources */,
+				029DBC1219D465AB008844E4 /* LoginSignupController.m in Sources */,
 				02137C6F19CB32B600F3A61F /* AppDelegate.m in Sources */,
 				02137C6C19CB32B600F3A61F /* main.m in Sources */,
 			);
@@ -417,6 +431,7 @@
 				02137C8B19CB32B600F3A61F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02137C8C19CB32B600F3A61F /* Build configuration list for PBXNativeTarget "VoterBoatTests" */ = {
 			isa = XCConfigurationList;
@@ -425,6 +440,7 @@
 				02137C8E19CB32B600F3A61F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
