@@ -95,6 +95,8 @@
 	
 	if ((_signup && indexPath.row == 1) || (!_signup && indexPath.row == 4))
 		tf.returnKeyType = UIReturnKeyGo;
+	else
+		tf.returnKeyType = UIReturnKeyNext;
 	
 	[cell addSubview:tf];
 	
