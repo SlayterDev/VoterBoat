@@ -93,6 +93,9 @@
 	[fields insertObject:tf atIndex:indexPath.row];
 	[tf addTarget:self action:@selector(goToNextField:) forControlEvents:UIControlEventEditingDidEndOnExit];
 	
+	if ((_signup && indexPath.row == 1) || (!_signup && indexPath.row == 4))
+		tf.returnKeyType = UIReturnKeyGo;
+	
 	[cell addSubview:tf];
 	
 	cell.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.92];
@@ -109,6 +112,7 @@
 	
 	if ([placeholder isEqualToString:@"Student ID"])
 		tf.keyboardType = UIKeyboardTypeNumberPad;
+	
 	
 	return tf;
 }
