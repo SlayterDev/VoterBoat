@@ -135,6 +135,10 @@
 			UITextField *pass = [fields objectAtIndex:3];
 			[pass becomeFirstResponder];
 		}
+		
+		UITabBarController *tabbar = [[UITabBarController alloc] init];
+		[tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+		[self presentViewController:tabbar animated:YES completion:nil];
 	}
 }
 

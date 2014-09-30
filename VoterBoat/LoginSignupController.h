@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CandidatesController.h"
+#import "LegislationController.h"
+#import "ExecutiveController.h"
 
 @interface LoginSignupController : UITableViewController {
 	NSMutableArray *fields;
