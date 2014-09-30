@@ -15,6 +15,18 @@
 		02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02137C7819CB32B600F3A61F /* LaunchScreen.xib */; };
 		02137C8619CB32B600F3A61F /* VoterBoatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02137C8519CB32B600F3A61F /* VoterBoatTests.m */; };
 		02137C9019CB36FC00F3A61F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02137C8F19CB36FC00F3A61F /* QuartzCore.framework */; };
+		0286147919DAFDC900F235EF /* CandidatesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0286147819DAFDC900F235EF /* CandidatesController.m */; };
+		0286147C19DAFFBA00F235EF /* LegislationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0286147B19DAFFBA00F235EF /* LegislationController.m */; };
+		0286147F19DAFFF300F235EF /* ExecutiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0286147E19DAFFF300F235EF /* ExecutiveController.m */; };
+		0286148319DB00D100F235EF /* USA-White-House.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0286148019DB00D100F235EF /* USA-White-House.jpg */; };
+		0286148419DB00D100F235EF /* o-SUPREME-COURT-facebook.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0286148119DB00D100F235EF /* o-SUPREME-COURT-facebook.jpg */; };
+		0286148519DB00D100F235EF /* 735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0286148219DB00D100F235EF /* 735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg */; };
+		0286148819DB011500F235EF /* brandenburg_gate-32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286148719DB011500F235EF /* brandenburg_gate-32@2x.png */; };
+		0286148A19DB012C00F235EF /* business-32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286148919DB012C00F235EF /* business-32@2x.png */; };
+		0286148C19DB014D00F235EF /* law-32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286148B19DB014D00F235EF /* law-32@2x.png */; };
+		0286148E19DB018A00F235EF /* business-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286148D19DB018A00F235EF /* business-32.png */; };
+		0286149019DB01CD00F235EF /* brandenburg_gate-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286148F19DB01CD00F235EF /* brandenburg_gate-32.png */; };
+		0286149219DB01E400F235EF /* law-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286149119DB01E400F235EF /* law-32.png */; };
 		029DBC1219D465AB008844E4 /* LoginSignupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029DBC1119D465AB008844E4 /* LoginSignupController.m */; };
 		029DBC1419D46D8E008844E4 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 029DBC1319D46D8E008844E4 /* Pacifico.ttf */; };
 		02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */; };
@@ -45,6 +57,21 @@
 		02137C8419CB32B600F3A61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02137C8519CB32B600F3A61F /* VoterBoatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoterBoatTests.m; sourceTree = "<group>"; };
 		02137C8F19CB36FC00F3A61F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0286147719DAFDC900F235EF /* CandidatesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandidatesController.h; sourceTree = "<group>"; };
+		0286147819DAFDC900F235EF /* CandidatesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandidatesController.m; sourceTree = "<group>"; };
+		0286147A19DAFFBA00F235EF /* LegislationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegislationController.h; sourceTree = "<group>"; };
+		0286147B19DAFFBA00F235EF /* LegislationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegislationController.m; sourceTree = "<group>"; };
+		0286147D19DAFFF300F235EF /* ExecutiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExecutiveController.h; sourceTree = "<group>"; };
+		0286147E19DAFFF300F235EF /* ExecutiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExecutiveController.m; sourceTree = "<group>"; };
+		0286148019DB00D100F235EF /* USA-White-House.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "USA-White-House.jpg"; sourceTree = "<group>"; };
+		0286148119DB00D100F235EF /* o-SUPREME-COURT-facebook.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "o-SUPREME-COURT-facebook.jpg"; sourceTree = "<group>"; };
+		0286148219DB00D100F235EF /* 735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg"; sourceTree = "<group>"; };
+		0286148719DB011500F235EF /* brandenburg_gate-32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brandenburg_gate-32@2x.png"; sourceTree = "<group>"; };
+		0286148919DB012C00F235EF /* business-32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "business-32@2x.png"; sourceTree = "<group>"; };
+		0286148B19DB014D00F235EF /* law-32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law-32@2x.png"; sourceTree = "<group>"; };
+		0286148D19DB018A00F235EF /* business-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "business-32.png"; sourceTree = "<group>"; };
+		0286148F19DB01CD00F235EF /* brandenburg_gate-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brandenburg_gate-32.png"; sourceTree = "<group>"; };
+		0286149119DB01E400F235EF /* law-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "law-32.png"; sourceTree = "<group>"; };
 		029DBC1019D465AB008844E4 /* LoginSignupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSignupController.h; sourceTree = "<group>"; };
 		029DBC1119D465AB008844E4 /* LoginSignupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSignupController.m; sourceTree = "<group>"; };
 		029DBC1319D46D8E008844E4 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
@@ -92,14 +119,19 @@
 		02137C6819CB32B600F3A61F /* VoterBoat */ = {
 			isa = PBXGroup;
 			children = (
-				029DBC1319D46D8E008844E4 /* Pacifico.ttf */,
-				02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */,
+				0286148619DB00D700F235EF /* Assets */,
 				02137C6D19CB32B600F3A61F /* AppDelegate.h */,
 				02137C6E19CB32B600F3A61F /* AppDelegate.m */,
 				02137C7019CB32B600F3A61F /* ViewController.h */,
 				02137C7119CB32B600F3A61F /* ViewController.m */,
 				029DBC1019D465AB008844E4 /* LoginSignupController.h */,
 				029DBC1119D465AB008844E4 /* LoginSignupController.m */,
+				0286147719DAFDC900F235EF /* CandidatesController.h */,
+				0286147819DAFDC900F235EF /* CandidatesController.m */,
+				0286147A19DAFFBA00F235EF /* LegislationController.h */,
+				0286147B19DAFFBA00F235EF /* LegislationController.m */,
+				0286147D19DAFFF300F235EF /* ExecutiveController.h */,
+				0286147E19DAFFF300F235EF /* ExecutiveController.m */,
 				02137C7319CB32B600F3A61F /* Main.storyboard */,
 				02137C7619CB32B600F3A61F /* Images.xcassets */,
 				02137C7819CB32B600F3A61F /* LaunchScreen.xib */,
@@ -132,6 +164,24 @@
 				02137C8419CB32B600F3A61F /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0286148619DB00D700F235EF /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0286149119DB01E400F235EF /* law-32.png */,
+				0286148F19DB01CD00F235EF /* brandenburg_gate-32.png */,
+				0286148D19DB018A00F235EF /* business-32.png */,
+				0286148B19DB014D00F235EF /* law-32@2x.png */,
+				0286148919DB012C00F235EF /* business-32@2x.png */,
+				0286148719DB011500F235EF /* brandenburg_gate-32@2x.png */,
+				0286148019DB00D100F235EF /* USA-White-House.jpg */,
+				0286148119DB00D100F235EF /* o-SUPREME-COURT-facebook.jpg */,
+				0286148219DB00D100F235EF /* 735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg */,
+				029DBC1319D46D8E008844E4 /* Pacifico.ttf */,
+				02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,9 +263,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0286148519DB00D100F235EF /* 735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg in Resources */,
+				0286148419DB00D100F235EF /* o-SUPREME-COURT-facebook.jpg in Resources */,
 				02137C7519CB32B600F3A61F /* Main.storyboard in Resources */,
+				0286149019DB01CD00F235EF /* brandenburg_gate-32.png in Resources */,
 				029DBC1419D46D8E008844E4 /* Pacifico.ttf in Resources */,
+				0286148319DB00D100F235EF /* USA-White-House.jpg in Resources */,
+				0286148819DB011500F235EF /* brandenburg_gate-32@2x.png in Resources */,
+				0286148C19DB014D00F235EF /* law-32@2x.png in Resources */,
 				02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */,
+				0286148E19DB018A00F235EF /* business-32.png in Resources */,
+				0286148A19DB012C00F235EF /* business-32@2x.png in Resources */,
+				0286149219DB01E400F235EF /* law-32.png in Resources */,
 				02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */,
 				02137C7719CB32B600F3A61F /* Images.xcassets in Resources */,
 			);
@@ -235,8 +294,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0286147F19DAFFF300F235EF /* ExecutiveController.m in Sources */,
 				02137C7219CB32B600F3A61F /* ViewController.m in Sources */,
+				0286147919DAFDC900F235EF /* CandidatesController.m in Sources */,
 				029DBC1219D465AB008844E4 /* LoginSignupController.m in Sources */,
+				0286147C19DAFFBA00F235EF /* LegislationController.m in Sources */,
 				02137C6F19CB32B600F3A61F /* AppDelegate.m in Sources */,
 				02137C6C19CB32B600F3A61F /* main.m in Sources */,
 			);
