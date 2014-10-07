@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExecutiveController : UITableViewController
+@interface ExecutiveController : UITableViewController {
+	NSArray *colors;
+}
 
 @end

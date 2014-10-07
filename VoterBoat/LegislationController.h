@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LegislationController : UITableViewController
+@interface LegislationController : UITableViewController {
+	NSArray *colors;
+}
 
 @end
