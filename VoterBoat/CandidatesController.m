@@ -33,9 +33,7 @@
 	
 	//self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Executive" image:[UIImage imageNamed:@"business-32.png"] tag:0];
 	
-	self.tableView.backgroundColor = [UIColor whiteColor];
-	
-	[self.tableView setContentInset:UIEdgeInsetsMake(260, 0, 0, 0)];
+	[self.tableView setContentInset:UIEdgeInsetsMake(260, 0, self.bottomLayoutGuide.length, 0)];
 	UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"USA-White-House.jpg"]];
 	iv.frame = CGRectMake(0, -260, self.view.bounds.size.width, 260);
 	[self.view addSubview:iv];
@@ -46,9 +44,16 @@
 	[self.view addSubview:lbl];
 	lbl.textColor = [UIColor whiteColor];
 	
-	colors = @[[UIColor colorWithRed:(68/255) green:(96/255) blue:(122/255) alpha:1.0], [UIColor colorWithRed:(231/255) green:(76/255) blue:(60/255) alpha:1.0], [UIColor colorWithRed:(0/255) green:(196/255) blue:(215/255) alpha:1.0], [UIColor colorWithRed:(0/255) green:(195/255) blue:(137/255) alpha:1.0], [UIColor colorWithRed:(0/255) green:(138/255) blue:(132/255) alpha:1.0], [UIColor colorWithRed:(246/255) green:(194/255) blue:(66/255) alpha:1.0], [UIColor colorWithRed:(227/255) green:(108/255) blue:(38/255) alpha:1.0]];
+	colors = @[[UIColor colorWithRed:68.0/255.0 green:96.0/255.0 blue:122.0/255.0 alpha:1.0], [UIColor colorWithRed:231.0/255.0 green:76.0/255.0 blue:60.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:196.0/255.0 blue:215.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:195.0/255.0 blue:137.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:138.0/255.0 blue:132.0/255.0 alpha:1.0], [UIColor colorWithRed:246.0/255.0 green:194.0/255.0 blue:66.0/255.0 alpha:1.0], [UIColor colorWithRed:227.0/255.0 green:108.0/255.0 blue:38.0/255.0 alpha:1.0]];
+	
+	self.tableView.backgroundColor = [colors objectAtIndex:0];
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
 	//self.view.backgroundColor = [UIColor lightGrayColor];
+}
+
+-(void) viewDidLayoutSubviews {
+	[self.tableView setContentInset:UIEdgeInsetsMake(260, 0, self.bottomLayoutGuide.length, 0)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,18 +73,23 @@
     return 8;
 }
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 60.0f;
+}
+
 -(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-	[cell setBackgroundColor:[colors objectAtIndex:indexPath.row % colors.count]];
+	[cell setBackgroundColor:[colors objectAtIndex:(indexPath.row % colors.count)]];
+	//cell.backgroundColor = [UIColor greenColor];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 	
-	UIView *back = [[UIView alloc] initWithFrame:CGRectZero];
-	cell.contentView.backgroundColor = [colors objectAtIndex:indexPath.row % colors.count];
+	//UIView *back = [[UIView alloc] initWithFrame:CGRectZero];
+	//cell.contentView.backgroundColor = [colors objectAtIndex:indexPath.row % colors.count];
 	//cell.backgroundView = back;
-	cell.textLabel.backgroundColor = [UIColor clearColor];
+	//cell.textLabel.backgroundColor = [UIColor clearColor];
 	switch (indexPath.row) {
 		case 0:
 			cell.textLabel.text = @"President";
@@ -118,11 +128,17 @@
 	}
 	
 	NSArray *states = @[@"Open", @"Closed", @"Register"];
-	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height, 0, cell.frame.size.height, cell.frame.size.height)];
+	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height+30, 60.0f)];
 	int choice = arc4random() % states.count;
 	lbl.text = [states objectAtIndex:choice];
+	lbl.textAlignment = NSTextAlignmentCenter;
 	lbl.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
 	[cell.contentView addSubview:lbl];
+	
+	cell.textLabel.textColor = [UIColor whiteColor];
+	cell.textLabel.font = [UIFont systemFontOfSize:18.0f];
+	lbl.textColor = [UIColor whiteColor];
+	cell.detailTextLabel.textColor = [UIColor whiteColor];
 	
     return cell;
 }

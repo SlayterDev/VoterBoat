@@ -49,6 +49,15 @@
 	[self.view addSubview:lbl];
 	lbl.textColor = [UIColor whiteColor];
 	
+	colors = @[[UIColor colorWithRed:68.0/255.0 green:96.0/255.0 blue:122.0/255.0 alpha:1.0], [UIColor colorWithRed:231.0/255.0 green:76.0/255.0 blue:60.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:196.0/255.0 blue:215.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:195.0/255.0 blue:137.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:138.0/255.0 blue:132.0/255.0 alpha:1.0], [UIColor colorWithRed:246.0/255.0 green:194.0/255.0 blue:66.0/255.0 alpha:1.0], [UIColor colorWithRed:227.0/255.0 green:108.0/255.0 blue:38.0/255.0 alpha:1.0]];
+	
+	self.tableView.backgroundColor = [colors objectAtIndex:0];
+	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+	
+}
+
+-(void) viewDidLayoutSubviews {
+	[self.tableView setContentInset:UIEdgeInsetsMake(260, 0, self.bottomLayoutGuide.length, 0)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,26 +68,60 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 3;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 60.0f;
 }
-*/
+
+-(void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+	[cell setBackgroundColor:[colors objectAtIndex:(indexPath.row % colors.count)]];
+	//cell.backgroundColor = [UIColor greenColor];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *CellIdentifier = @"Cell";
+	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+	
+	switch (indexPath.row) {
+		case 0:
+			cell.textLabel.text = @"Chief Justice";
+			cell.detailTextLabel.text = @"2 candidates";
+			break;
+		case 1:
+			cell.textLabel.text = @"Justice of the Peace";
+			cell.detailTextLabel.text = @"3 candidates";
+			break;
+		case 2:
+			cell.textLabel.text = @"Balif";
+			cell.detailTextLabel.text = @"1 candidates";
+			break;
+		default:
+			break;
+	}
+	
+	NSArray *states = @[@"Open", @"Closed", @"Register"];
+	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height+30, 60.0f)];
+	int choice = arc4random() % states.count;
+	lbl.text = [states objectAtIndex:choice];
+	lbl.textAlignment = NSTextAlignmentCenter;
+	lbl.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+	[cell.contentView addSubview:lbl];
+	
+	cell.textLabel.textColor = [UIColor whiteColor];
+	cell.textLabel.font = [UIFont systemFontOfSize:18.0f];
+	lbl.textColor = [UIColor whiteColor];
+	cell.detailTextLabel.textColor = [UIColor whiteColor];
+	
+	return cell;
+}
 
 /*
 // Override to support conditional editing of the table view.
