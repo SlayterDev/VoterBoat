@@ -7,6 +7,9 @@
 //
 
 #import "LoginSignupController.h"
+#import "AFNetworking.h"
+#import "DejalActivityView.h"
+#import "SBJsonParser.h"
 
 @interface LoginSignupController ()
 
@@ -16,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -37,8 +39,6 @@
 	titleLbl.font = [UIFont fontWithName:@"Pacifico" size:70];
 	titleLbl.textColor = [UIColor whiteColor];
 	[self.view addSubview:titleLbl];
-	
-	colleges = @[@"College of Engineering", @"College of Education"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,14 +61,17 @@
 		return 2;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     // Configure the cell...
 	UITextField *tf;
-	UIPickerView *picker;
 	switch (indexPath.row) {
 		case 0:
 			tf = [self createTextFieldWithPlaceholder:@"Username"];
@@ -82,9 +85,6 @@
 		case 2:
 			// College selction
 			tf = [self createTextFieldWithPlaceholder:@"College"];
-			picker = [self createPickerView];
-			tf.inputView = picker;
-			collegeField = tf;
 			break;
 		case 3:
 			tf = [self createTextFieldWithPlaceholder:@"Password"];
@@ -112,7 +112,8 @@
 }
 
 -(UITextField *) createTextFieldWithPlaceholder:(NSString *)placeholder {
-	UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, [[UIScreen mainScreen] bounds].size.width - 10, 35)];
+	UITextField *tf = [[UITextField alloc] initWithFrame:CGRectMake(20, 13, [[UIScreen mainScreen] bounds].size.width - 10, 35)];
+    [tf setFont:[UIFont fontWithName:@"HelveticaNeue" size:17.0]];
 	tf.placeholder = placeholder;
 	
 	if ([placeholder rangeOfString:@"Password"].location != NSNotFound)
@@ -125,33 +126,6 @@
 	return tf;
 }
 
--(UIPickerView *) createPickerView {
-	UIPickerView *picker = [[UIPickerView alloc] init];
-	
-	picker.delegate = self;
-	picker.dataSource = self;
-	picker.showsSelectionIndicator = YES;
-	
-	return picker;
-}
-
--(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	collegeField.text = [colleges objectAtIndex:row];
-	[self goToNextField:collegeField];
-}
-
--(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return colleges.count;
-}
-
--(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-	return 1;
-}
-
--(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	return [colleges objectAtIndex:row];
-}
-
 -(void) goToNextField:(id)sender {
 	NSLog(@"Go to next");
 	UITextField *tf = (UITextField *)sender;
@@ -161,32 +135,104 @@
 		UITextField *newTf = [fields objectAtIndex:newTag];
 		[newTf becomeFirstResponder];
 	} else {
-		if ([self checkPasswords]) {
-			[[[UIAlertView alloc] initWithTitle:@"Welcome" message:@"You have \"signed up\"" delegate:nil cancelButtonTitle:@"Yay?" otherButtonTitles:nil] show];
-		} else {
-			[[[UIAlertView alloc] initWithTitle:@"Error" message:@"Your password does not match the confirm field" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
-			UITextField *pass = [fields objectAtIndex:3];
-			[pass becomeFirstResponder];
-		}
-		
-		UITabBarController *tabbar = [[UITabBarController alloc] init];
-		[tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
-		[self presentViewController:tabbar animated:YES completion:nil];
+        [self checkPasswords];
 	}
 }
 
--(BOOL) checkPasswords {
-	if (!_signup) {
-		UITextField *pass1 = [fields objectAtIndex:3];
-		UITextField *pass2 = [fields objectAtIndex:4];
-		
-		if ([pass1.text isEqualToString:pass2.text])
-			return YES;
-		else
-			return NO;
-	}
+-(void) checkPasswords {
 	
-	return YES;
+    if (!_signup) {
+        // sign up
+        NSLog(@"sign up");
+		UITextField *user_name = [fields objectAtIndex:0];
+		UITextField *student_id = [fields objectAtIndex:1];
+        UITextField *college = [fields objectAtIndex:2];
+        UITextField *password = [fields objectAtIndex:3];
+        UITextField *password2 = [fields objectAtIndex:4];
+        
+        if ([password.text isEqualToString:password2.text])
+        {
+            [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
+            [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+            
+            NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+            AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"users", @"controller", @"create_account", @"method", user_name.text, @"user_name", student_id.text, @"student_id", password.text, @"password", nil];
+            [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [DejalActivityView removeView];
+                NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                SBJsonParser *parser = [[SBJsonParser alloc] init];
+                NSDictionary *response = [parser objectWithString:responseStr];
+                NSLog(@"%@", responseStr);
+                if ([response objectForKey:@"did_succeed"])
+                {
+                    [defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
+                    [defaults setObject:@"YES" forKey:@"is_logged_in"];
+                    UITabBarController *tabbar = [[UITabBarController alloc] init];
+                    [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+                    [self presentViewController:tabbar animated:YES completion:nil];
+                }
+                else
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+                    [alert show];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                /* dispatch_async(dispatch_get_main_queue(), ^{
+                 [errors addObject:@"94"];
+                 [self checkStatus];
+                 });*/
+            }];
+        }
+        else
+        {
+            [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Your passwords do not match." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+        }
+	}
+    else
+    {
+        // sign in
+        NSLog(@"Sign in");
+        
+        UITextField *user_name = [fields objectAtIndex:0];
+        UITextField *password = [fields objectAtIndex:1];
+        NSLog(@"%@", user_name.text);
+        NSLog(@"%@", password.text);
+
+        [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
+        [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+        
+        NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"users", @"controller", @"sign_in", @"method", user_name.text, @"user_name", password.text, @"password", nil];
+        [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [DejalActivityView removeView];
+            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            SBJsonParser *parser = [[SBJsonParser alloc] init];
+            NSDictionary *response = [parser objectWithString:responseStr];
+            NSLog(@"%@", responseStr);
+            if ([response objectForKey:@"did_succeed"])
+            {
+                [defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
+                [defaults setObject:@"YES" forKey:@"is_logged_in"];
+                UITabBarController *tabbar = [[UITabBarController alloc] init];
+                [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+                [self presentViewController:tabbar animated:YES completion:nil];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+                [alert show];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            /* dispatch_async(dispatch_get_main_queue(), ^{
+             [errors addObject:@"94"];
+             [self checkStatus];
+             });*/
+        }];
+    }
 }
 
 /*

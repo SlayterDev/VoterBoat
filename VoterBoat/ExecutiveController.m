@@ -7,6 +7,9 @@
 //
 
 #import "ExecutiveController.h"
+#import "AFNetworking.h"
+#import "DejalActivityView.h"
+#import "SBJsonParser.h"
 
 @interface ExecutiveController ()
 
@@ -56,6 +59,47 @@
 	
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self loadElections];
+}
+
+- (void)loadElections
+{
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
+    [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+    NSLog(@"USER ID: %@", [defaults objectForKey:@"user_id"]);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"get_elections", @"method", @"Judicial", @"type", [defaults objectForKey:@"user_id"], @"user_id", nil];
+    [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [DejalActivityView removeView];
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSDictionary *response = [parser objectWithString:responseStr];
+        NSLog(@"%@", responseStr);
+        if ([response objectForKey:@"did_succeed"])
+        {
+            elections = [response objectForKey:@"data"];
+            NSLog(@"%@", elections);
+            [self.tableView reloadData];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+            [alert show];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        /* dispatch_async(dispatch_get_main_queue(), ^{
+         [errors addObject:@"94"];
+         [self checkStatus];
+         });*/
+    }];
+}
+
+
 -(void) viewDidLayoutSubviews {
 	[self.tableView setContentInset:UIEdgeInsetsMake(260, 0, self.bottomLayoutGuide.length, 0)];
 }
@@ -74,7 +118,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 3;
+    return [elections count];
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,40 +131,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *CellIdentifier = @"Cell";
-	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-	
-	switch (indexPath.row) {
-		case 0:
-			cell.textLabel.text = @"Chief Justice";
-			cell.detailTextLabel.text = @"2 candidates";
-			break;
-		case 1:
-			cell.textLabel.text = @"Justice of the Peace";
-			cell.detailTextLabel.text = @"3 candidates";
-			break;
-		case 2:
-			cell.textLabel.text = @"Balif";
-			cell.detailTextLabel.text = @"1 candidates";
-			break;
-		default:
-			break;
-	}
-	
-	NSArray *states = @[@"Open", @"Closed", @"Register"];
-	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height***REMOVED***30, 60.0f)];
-	int choice = arc4random() % states.count;
-	lbl.text = [states objectAtIndex:choice];
-	lbl.textAlignment = NSTextAlignmentCenter;
-	lbl.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-	[cell.contentView addSubview:lbl];
-	
-	cell.textLabel.textColor = [UIColor whiteColor];
-	cell.textLabel.font = [UIFont systemFontOfSize:18.0f];
-	lbl.textColor = [UIColor whiteColor];
-	cell.detailTextLabel.textColor = [UIColor whiteColor];
-	
-	return cell;
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    //UIView *back = [[UIView alloc] initWithFrame:CGRectZero];
+    //cell.contentView.backgroundColor = [colors objectAtIndex:indexPath.row % colors.count];
+    //cell.backgroundView = back;
+    //cell.textLabel.backgroundColor = [UIColor clearColor];
+    
+    cell.textLabel.text = [[elections objectAtIndex:indexPath.row] objectForKey:@"name"];
+    
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height***REMOVED***30, 60.0f)];
+    if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
+        lbl.text = @"Open";
+    else
+        lbl.text = @"Closed";
+    lbl.textAlignment = NSTextAlignmentCenter;
+    lbl.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    [cell.contentView addSubview:lbl];
+    
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:18.0f];
+    lbl.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    
+    return cell;
 }
 
 /*

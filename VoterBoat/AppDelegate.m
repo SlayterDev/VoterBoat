@@ -17,6 +17,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+    [defaults setObject:@"http://www.usesweetspot.com/voterboat/backend/" forKey:@"api_url"];
+    
 	return YES;
 }
 
