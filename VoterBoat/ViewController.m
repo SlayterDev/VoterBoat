@@ -22,6 +22,18 @@
 	
 }
 
+-(void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+	if ([[userPrefs objectForKey:@"is_logged_in"] isEqualToString:@"YES"]) {
+		UITabBarController *tabbar = [[UITabBarController alloc] init];
+		[tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+		[self presentViewController:tabbar animated:YES completion:nil];
+	}
+	
+}
+
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.

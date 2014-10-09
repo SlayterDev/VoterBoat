@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginSignupController.h"
+#import "CandidatesController.h"
+#import "LegislationController.h"
+#import "ExecutiveController.h"
 
 @interface ViewController : UIViewController
 
