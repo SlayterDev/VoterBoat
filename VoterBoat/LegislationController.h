@@ -10,6 +10,8 @@
 
 @interface LegislationController : UITableViewController {
 	NSArray *colors;
+    NSMutableArray *elections;
+    UIRefreshControl *refreshControl;
 }
 
 @end

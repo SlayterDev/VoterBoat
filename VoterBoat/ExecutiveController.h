@@ -10,6 +10,7 @@
 
 @interface ExecutiveController : UITableViewController {
 	NSArray *colors;
+    NSMutableArray *elections;
 }
 
 @end

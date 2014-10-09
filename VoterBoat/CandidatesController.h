@@ -10,6 +10,7 @@
 
 @interface CandidatesController : UITableViewController {
 	NSArray *colors;
+    NSMutableArray *elections;
 }
 
 @end
