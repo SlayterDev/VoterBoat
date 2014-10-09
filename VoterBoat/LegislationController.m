@@ -152,6 +152,28 @@
     return cell;
 }
 
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	bool isRegistered = [[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] boolValue];
+	
+	if (!isRegistered) {
+		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Register" message:@"Would you like to register as a candidate or a voter?" preferredStyle:UIAlertControllerStyleAlert];
+		UIAlertAction *voter = [UIAlertAction actionWithTitle:@"Voter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			
+		}];
+		[alert addAction:voter];
+		
+		UIAlertAction *candidate = [UIAlertAction actionWithTitle:@"Candidate" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+			
+		}];
+		[alert addAction:candidate];
+		
+		UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+			//[self dismissViewControllerAnimated:YES completion:nil];
+		}];
+		[alert addAction:cancel];
+		[self presentViewController:alert animated:YES completion:nil];
+	}
+}
 
 /*
 // Override to support conditional editing of the table view.
