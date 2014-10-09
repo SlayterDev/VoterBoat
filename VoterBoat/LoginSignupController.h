@@ -11,8 +11,10 @@
 #import "LegislationController.h"
 #import "ExecutiveController.h"
 
-@interface LoginSignupController : UITableViewController {
+@interface LoginSignupController : UITableViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
 	NSMutableArray *fields;
+	NSArray *colleges;
+	UITextField *collegeField;
 }
 
 @property (assign, nonatomic) BOOL signup;
