@@ -37,6 +37,8 @@
 	titleLbl.font = [UIFont fontWithName:@"Pacifico" size:70];
 	titleLbl.textColor = [UIColor whiteColor];
 	[self.view addSubview:titleLbl];
+	
+	colleges = @[@"College of Engineering", @"College of Education"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,6 +68,7 @@
 	
     // Configure the cell...
 	UITextField *tf;
+	UIPickerView *picker;
 	switch (indexPath.row) {
 		case 0:
 			tf = [self createTextFieldWithPlaceholder:@"Username"];
@@ -79,6 +82,8 @@
 		case 2:
 			// College selction
 			tf = [self createTextFieldWithPlaceholder:@"College"];
+			picker = [self createPickerView];
+			tf.inputView = picker;
 			break;
 		case 3:
 			tf = [self createTextFieldWithPlaceholder:@"Password"];
@@ -117,6 +122,33 @@
 	
 	
 	return tf;
+}
+
+-(UIPickerView *) createPickerView {
+	UIPickerView *picker = [[UIPickerView alloc] init];
+	
+	picker.delegate = self;
+	picker.dataSource = self;
+	picker.showsSelectionIndicator = YES;
+	
+	return picker;
+}
+
+-(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	collegeField.text = [colleges objectAtIndex:row];
+	[collegeField resignFirstResponder];
+}
+
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return colleges.count;
+}
+
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+-(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	return [colleges objectAtIndex:row];
 }
 
 -(void) goToNextField:(id)sender {
