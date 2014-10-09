@@ -84,6 +84,7 @@
 			tf = [self createTextFieldWithPlaceholder:@"College"];
 			picker = [self createPickerView];
 			tf.inputView = picker;
+			collegeField = tf;
 			break;
 		case 3:
 			tf = [self createTextFieldWithPlaceholder:@"Password"];
@@ -136,7 +137,7 @@
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
 	collegeField.text = [colleges objectAtIndex:row];
-	[collegeField resignFirstResponder];
+	[self goToNextField:collegeField];
 }
 
 -(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
