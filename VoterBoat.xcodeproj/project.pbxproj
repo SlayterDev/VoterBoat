@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020951EE19F6B2D600FAD274 /* CandidateListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 020951ED19F6B2D600FAD274 /* CandidateListController.m */; };
 		02137C6C19CB32B600F3A61F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 02137C6B19CB32B600F3A61F /* main.m */; };
 		02137C6F19CB32B600F3A61F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 02137C6E19CB32B600F3A61F /* AppDelegate.m */; };
 		02137C7219CB32B600F3A61F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 02137C7119CB32B600F3A61F /* ViewController.m */; };
@@ -59,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		020951EC19F6B2D600FAD274 /* CandidateListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandidateListController.h; sourceTree = "<group>"; };
+		020951ED19F6B2D600FAD274 /* CandidateListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandidateListController.m; sourceTree = "<group>"; };
 		02137C6619CB32B600F3A61F /* VoterBoat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoterBoat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		02137C6A19CB32B600F3A61F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02137C6B19CB32B600F3A61F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				0286147B19DAFFBA00F235EF /* LegislationController.m */,
 				0286147D19DAFFF300F235EF /* ExecutiveController.h */,
 				0286147E19DAFFF300F235EF /* ExecutiveController.m */,
+				020951EC19F6B2D600FAD274 /* CandidateListController.h */,
+				020951ED19F6B2D600FAD274 /* CandidateListController.m */,
 				02137C7319CB32B600F3A61F /* Main.storyboard */,
 				02137C7619CB32B600F3A61F /* Images.xcassets */,
 				02137C7819CB32B600F3A61F /* LaunchScreen.xib */,
@@ -420,6 +425,7 @@
 				02137C6F19CB32B600F3A61F /* AppDelegate.m in Sources */,
 				02137C6C19CB32B600F3A61F /* main.m in Sources */,
 				DB2CF43A19E6E02D0092DF79 /* DejalActivityView.m in Sources */,
+				020951EE19F6B2D600FAD274 /* CandidateListController.m in Sources */,
 				DB2CF44819E6E0350092DF79 /* SBJsonBase.m in Sources */,
 				DB2CF42F19E6E0230092DF79 /* AFHTTPClient.m in Sources */,
 				DB2CF43419E6E0230092DF79 /* AFPropertyListRequestOperation.m in Sources */,

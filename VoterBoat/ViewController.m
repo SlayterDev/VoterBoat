@@ -28,7 +28,7 @@
 	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
 	if ([[userPrefs objectForKey:@"is_logged_in"] isEqualToString:@"YES"]) {
 		UITabBarController *tabbar = [[UITabBarController alloc] init];
-		[tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+		[tabbar setViewControllers:@[[[UINavigationController alloc] initWithRootViewController:[[CandidatesController alloc] initWithStyle:UITableViewStylePlain]], [[UINavigationController alloc] initWithRootViewController:[[LegislationController alloc] initWithStyle:UITableViewStylePlain]], [[UINavigationController alloc] initWithRootViewController:[[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]]];
 		[self presentViewController:tabbar animated:YES completion:nil];
 	}
 	

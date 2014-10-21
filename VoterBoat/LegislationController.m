@@ -54,9 +54,16 @@
 	
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [self loadElections];
+	[super viewWillAppear:animated];
+	[self loadElections];
+	[self.navigationController setNavigationBarHidden:YES];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)loadElections
@@ -158,7 +165,10 @@
 	if (!isRegistered) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Register" message:@"Would you like to register as a candidate or a voter?" preferredStyle:UIAlertControllerStyleAlert];
 		UIAlertAction *voter = [UIAlertAction actionWithTitle:@"Voter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			
+			CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
+			controller.picture = 1;
+			controller.branch = self.tabBarItem.title;
+			[self presentViewController:controller animated:YES completion:nil];
 		}];
 		[alert addAction:voter];
 		

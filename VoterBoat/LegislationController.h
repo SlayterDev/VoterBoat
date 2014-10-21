@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CandidateListController.h"
 
 @interface LegislationController : UITableViewController {
 	NSArray *colors;

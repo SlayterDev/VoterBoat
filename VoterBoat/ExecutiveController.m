@@ -59,9 +59,16 @@
 	
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [self loadElections];
+	[super viewWillAppear:animated];
+	[self loadElections];
+	[self.navigationController setNavigationBarHidden:YES];
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)loadElections
@@ -134,10 +141,6 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    //UIView *back = [[UIView alloc] initWithFrame:CGRectZero];
-    //cell.contentView.backgroundColor = [colors objectAtIndex:indexPath.row % colors.count];
-    //cell.backgroundView = back;
-    //cell.textLabel.backgroundColor = [UIColor clearColor];
     
     cell.textLabel.text = [[elections objectAtIndex:indexPath.row] objectForKey:@"name"];
     
@@ -164,7 +167,10 @@
 	if (!isRegistered) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Register" message:@"Would you like to register as a candidate or a voter?" preferredStyle:UIAlertControllerStyleAlert];
 		UIAlertAction *voter = [UIAlertAction actionWithTitle:@"Voter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			
+			CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
+			controller.picture = 2;
+			controller.branch = self.tabBarItem.title;
+			[self presentViewController:controller animated:YES completion:nil];
 		}];
 		[alert addAction:voter];
 		
@@ -174,7 +180,7 @@
 		[alert addAction:candidate];
 		
 		UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-			//[self dismissViewControllerAnimated:YES completion:nil];
+			
 		}];
 		[alert addAction:cancel];
 		[self presentViewController:alert animated:YES completion:nil];
