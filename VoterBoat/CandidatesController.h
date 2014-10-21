@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CandidateListController.h"
 
 @interface CandidatesController : UITableViewController {
 	NSArray *colors;
