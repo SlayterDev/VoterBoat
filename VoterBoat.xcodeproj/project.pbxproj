@@ -30,6 +30,9 @@
 		0286149219DB01E400F235EF /* law-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 0286149119DB01E400F235EF /* law-32.png */; };
 		029DBC1219D465AB008844E4 /* LoginSignupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 029DBC1119D465AB008844E4 /* LoginSignupController.m */; };
 		029DBC1419D46D8E008844E4 /* Pacifico.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 029DBC1319D46D8E008844E4 /* Pacifico.ttf */; };
+		029F523819F957C6009D150B /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 029F523619F957C6009D150B /* SettingsView.m */; };
+		029F523919F957C6009D150B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029F523719F957C6009D150B /* SettingsView.xib */; };
+		029F523B19F95C1B009D150B /* cameraSquared.png in Resources */ = {isa = PBXBuildFile; fileRef = 029F523A19F95C1B009D150B /* cameraSquared.png */; };
 		02AC1F1D19E4430F00A664EE /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AC1F1C19E4430F00A664EE /* Images-2.xcassets */; };
 		02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */; };
 		DB2CF42F19E6E0230092DF79 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF41D19E6E0230092DF79 /* AFHTTPClient.m */; };
@@ -94,6 +97,10 @@
 		029DBC1019D465AB008844E4 /* LoginSignupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSignupController.h; sourceTree = "<group>"; };
 		029DBC1119D465AB008844E4 /* LoginSignupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSignupController.m; sourceTree = "<group>"; };
 		029DBC1319D46D8E008844E4 /* Pacifico.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pacifico.ttf; sourceTree = "<group>"; };
+		029F523519F957C6009D150B /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsView.h; sourceTree = "<group>"; };
+		029F523619F957C6009D150B /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
+		029F523719F957C6009D150B /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
+		029F523A19F95C1B009D150B /* cameraSquared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraSquared.png; sourceTree = "<group>"; };
 		02AC1F1C19E4430F00A664EE /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1289493_21101753.jpg; sourceTree = "<group>"; };
 		DB2CF41C19E6E0230092DF79 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = AFNetworking/AFHTTPClient.h; sourceTree = "<group>"; };
@@ -186,6 +193,9 @@
 				0286147E19DAFFF300F235EF /* ExecutiveController.m */,
 				020951EC19F6B2D600FAD274 /* CandidateListController.h */,
 				020951ED19F6B2D600FAD274 /* CandidateListController.m */,
+				029F523519F957C6009D150B /* SettingsView.h */,
+				029F523619F957C6009D150B /* SettingsView.m */,
+				029F523719F957C6009D150B /* SettingsView.xib */,
 				02137C7319CB32B600F3A61F /* Main.storyboard */,
 				02137C7619CB32B600F3A61F /* Images.xcassets */,
 				02137C7819CB32B600F3A61F /* LaunchScreen.xib */,
@@ -227,6 +237,7 @@
 		0286148619DB00D700F235EF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				029F523A19F95C1B009D150B /* cameraSquared.png */,
 				0286149119DB01E400F235EF /* law-32.png */,
 				0286148F19DB01CD00F235EF /* brandenburg_gate-32.png */,
 				0286148D19DB018A00F235EF /* business-32.png */,
@@ -385,8 +396,10 @@
 				0286148C19DB014D00F235EF /* law-32@2x.png in Resources */,
 				02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */,
 				0286148E19DB018A00F235EF /* business-32.png in Resources */,
+				029F523B19F95C1B009D150B /* cameraSquared.png in Resources */,
 				0286148A19DB012C00F235EF /* business-32@2x.png in Resources */,
 				0286149219DB01E400F235EF /* law-32.png in Resources */,
+				029F523919F957C6009D150B /* SettingsView.xib in Resources */,
 				02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */,
 				02137C7719CB32B600F3A61F /* Images.xcassets in Resources */,
 			);
@@ -411,6 +424,7 @@
 				DB2CF43619E6E0230092DF79 /* AFXMLRequestOperation.m in Sources */,
 				DB2CF43219E6E0230092DF79 /* AFJSONRequestOperation.m in Sources */,
 				DB2CF43019E6E0230092DF79 /* AFHTTPRequestOperation.m in Sources */,
+				029F523819F957C6009D150B /* SettingsView.m in Sources */,
 				DB2CF44619E6E0350092DF79 /* NSObject***REMOVED***SBJSON.m in Sources */,
 				0286147F19DAFFF300F235EF /* ExecutiveController.m in Sources */,
 				02137C7219CB32B600F3A61F /* ViewController.m in Sources */,

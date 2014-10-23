@@ -11,6 +11,7 @@
 #import "CandidatesController.h"
 #import "LegislationController.h"
 #import "ExecutiveController.h"
+#import "SettingsView.h"
 
 @interface ViewController : UIViewController
 
