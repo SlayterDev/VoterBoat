@@ -165,16 +165,68 @@
 	if (!isRegistered) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Register" message:@"Would you like to register as a candidate or a voter?" preferredStyle:UIAlertControllerStyleAlert];
 		UIAlertAction *voter = [UIAlertAction actionWithTitle:@"Voter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
+			/*CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
 			controller.picture = 0;
 			controller.branch = self.tabBarItem.title;
 			controller.electionID = [[[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
-			[self.navigationController pushViewController:controller animated:YES];
+			[self.navigationController pushViewController:controller animated:YES];*/
+			
+			NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+			NSLog(@"USER ID: %@", [defaults objectForKey:@"user_id"]);
+			NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+			AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+			NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"register_election", @"method", [defaults objectForKey:@"user_id"], @"user_id", [[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"], @"election_id", nil];
+			[httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+				[DejalActivityView removeView];
+				NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+				SBJsonParser *parser = [[SBJsonParser alloc] init];
+				NSDictionary *response = [parser objectWithString:responseStr];
+				NSLog(@"%@", responseStr);
+				if ([response objectForKey:@"did_succeed"])
+				{
+					NSLog(@"Yay");
+				}
+				else
+				{
+					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+					[alert show];
+				}
+			} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+				/* dispatch_async(dispatch_get_main_queue(), ^{
+				 [errors addObject:@"94"];
+				 [self checkStatus];
+				 });*/
+			}];
 		}];
 		[alert addAction:voter];
 		
 		UIAlertAction *candidate = [UIAlertAction actionWithTitle:@"Candidate" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			
+			NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+			NSLog(@"USER ID: %@", [defaults objectForKey:@"user_id"]);
+			NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+			AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+			NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"register_candidate", @"method", [defaults objectForKey:@"user_id"], @"user_id", [[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"], @"election_id", nil];
+			[httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+				[DejalActivityView removeView];
+				NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+				SBJsonParser *parser = [[SBJsonParser alloc] init];
+				NSDictionary *response = [parser objectWithString:responseStr];
+				NSLog(@"%@", responseStr);
+				if ([response objectForKey:@"did_succeed"])
+				{
+					NSLog(@"Yay");
+				}
+				else
+				{
+					UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+					[alert show];
+				}
+			} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+				/* dispatch_async(dispatch_get_main_queue(), ^{
+				 [errors addObject:@"94"];
+				 [self checkStatus];
+				 });*/
+			}];
 		}];
 		[alert addAction:candidate];
 		
