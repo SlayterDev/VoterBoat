@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsView : UITableViewController {
+@interface SettingsView : UITableViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate> {
 	UITextView *tv;
 	UIImageView *iv;
+	
+	UIBarButtonItem *cancelBtn;
+	
+	BOOL pickingImage;
 }
 
 @end

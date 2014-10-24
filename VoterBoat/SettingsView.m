@@ -31,7 +31,44 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	
+	UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(saveData:)];
+	self.navigationItem.rightBarButtonItem = saveBtn;
 	
+	cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelEdit:)];
+	
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+	if ([userPrefs objectForKey:@"user_bio"] && [userPrefs objectForKey:@"user_pic"] && !pickingImage) {
+		tv.text = [userPrefs objectForKey:@"user_bio"];
+		
+		NSLog(@"FILE TO LOAD: %@", [userPrefs objectForKey:@"user_pic"]);
+		if (![NSData dataWithContentsOfFile:[userPrefs objectForKey:@"user_pic"]])
+			NSLog(@"Something went wrong");
+		iv.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:[userPrefs objectForKey:@"user_pic"]]];
+	}
+}
+
+-(void) saveData:(id)sender {
+	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+	[userPrefs setObject:tv.text forKey:@"user_bio"];
+	
+	NSData *imageData = UIImagePNGRepresentation(iv.image);
+	NSString *path = [self documentsPathForFileName:@"profilePic.png"];
+	NSLog(@"Path: %@", path);
+	[imageData writeToFile:path atomically:YES];
+	[userPrefs setObject:path forKey:@"user_pic"];
+	
+	[userPrefs synchronize];
+	
+	[[[UIAlertView alloc] initWithTitle:@"Saved!" message:@"Your Bio has been saved succesfully. You may now register as a candidate for elections." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+}
+
+-(void) cancelEdit:(id)sender {
+	[tv resignFirstResponder];
+	self.navigationItem.leftBarButtonItem = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +122,7 @@
 			[cell.contentView addSubview:lbl];
 			
 			tv = [[UITextView alloc] initWithFrame:CGRectMake(5, 25, cell.bounds.size.width, 100)];
+			tv.delegate = self;
 			[cell.contentView addSubview:tv];
 		}
 	}
@@ -93,7 +131,56 @@
 }
 
 -(void) choosePicture:(id)sender {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take a Picture", @"Choose from library", nil];
+	[actionSheet showInView:self.view];
+}
+
+-(void) showPicker:(int)library {
+	UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+	controller.sourceType = (library) ? UIImagePickerControllerSourceTypePhotoLibrary : UIImagePickerControllerSourceTypeCamera;
+	controller.allowsEditing = YES;
+	controller.delegate = self;
 	
+	pickingImage = YES;
+	[self presentViewController:controller animated:YES completion:nil];
+}
+
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	NSLog(@"Finished picking");
+	UIImage *image = info[UIImagePickerControllerEditedImage];
+	iv.image = image;
+	[self dismissViewControllerAnimated:YES completion:^{
+		pickingImage = NO;
+	}];
+}
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	switch (buttonIndex) {
+		case 0:
+			[self showPicker:0];
+			break;
+		case 1:
+			[self showPicker:1];
+		default:
+			break;
+	}
+}
+
+-(BOOL) textViewShouldBeginEditing:(UITextView *)textView {
+	self.navigationItem.leftBarButtonItem = cancelBtn;
+	
+	return YES;
+}
+
+-(NSString *)documentsPathForFileName:(NSString *)name {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	
+	return [documentsPath stringByAppendingPathComponent:name];
 }
 
 /*
