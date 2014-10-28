@@ -35,6 +35,7 @@
 		029F523B19F95C1B009D150B /* cameraSquared.png in Resources */ = {isa = PBXBuildFile; fileRef = 029F523A19F95C1B009D150B /* cameraSquared.png */; };
 		02AC1F1D19E4430F00A664EE /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AC1F1C19E4430F00A664EE /* Images-2.xcassets */; };
 		02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */; };
+		A955FEBA19FF3FD9009EBB93 /* CandidateProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */; };
 		DB2CF42F19E6E0230092DF79 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF41D19E6E0230092DF79 /* AFHTTPClient.m */; };
 		DB2CF43019E6E0230092DF79 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF41F19E6E0230092DF79 /* AFHTTPRequestOperation.m */; };
 		DB2CF43119E6E0230092DF79 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF42119E6E0230092DF79 /* AFImageRequestOperation.m */; };
@@ -103,6 +104,8 @@
 		029F523A19F95C1B009D150B /* cameraSquared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraSquared.png; sourceTree = "<group>"; };
 		02AC1F1C19E4430F00A664EE /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
 		02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1289493_21101753.jpg; sourceTree = "<group>"; };
+		A955FEB819FF3FD9009EBB93 /* CandidateProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandidateProfileController.h; sourceTree = "<group>"; };
+		A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandidateProfileController.m; sourceTree = "<group>"; };
 		DB2CF41C19E6E0230092DF79 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = AFNetworking/AFHTTPClient.h; sourceTree = "<group>"; };
 		DB2CF41D19E6E0230092DF79 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = AFNetworking/AFHTTPClient.m; sourceTree = "<group>"; };
 		DB2CF41E19E6E0230092DF79 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = AFNetworking/AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				0286147E19DAFFF300F235EF /* ExecutiveController.m */,
 				020951EC19F6B2D600FAD274 /* CandidateListController.h */,
 				020951ED19F6B2D600FAD274 /* CandidateListController.m */,
+				A955FEB819FF3FD9009EBB93 /* CandidateProfileController.h */,
+				A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */,
 				029F523519F957C6009D150B /* SettingsView.h */,
 				029F523619F957C6009D150B /* SettingsView.m */,
 				029F523719F957C6009D150B /* SettingsView.xib */,
@@ -441,6 +446,7 @@
 				DB2CF43A19E6E02D0092DF79 /* DejalActivityView.m in Sources */,
 				020951EE19F6B2D600FAD274 /* CandidateListController.m in Sources */,
 				DB2CF44819E6E0350092DF79 /* SBJsonBase.m in Sources */,
+				A955FEBA19FF3FD9009EBB93 /* CandidateProfileController.m in Sources */,
 				DB2CF42F19E6E0230092DF79 /* AFHTTPClient.m in Sources */,
 				DB2CF43419E6E0230092DF79 /* AFPropertyListRequestOperation.m in Sources */,
 			);

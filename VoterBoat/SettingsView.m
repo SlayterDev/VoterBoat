@@ -7,6 +7,9 @@
 //
 
 #import "SettingsView.h"
+#import "AFNetworking.h"
+#import "SBJsonParser.h"
+#import "DejalActivityView.h"
 
 @interface SettingsView ()
 
@@ -41,6 +44,7 @@
 -(void) viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+    self.title = @"Settings";
 	if ([userPrefs objectForKey:@"user_bio"] && [userPrefs objectForKey:@"user_pic"] && !pickingImage) {
 		tv.text = [userPrefs objectForKey:@"user_bio"];
 		
@@ -52,18 +56,38 @@
 }
 
 -(void) saveData:(id)sender {
-	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
-	[userPrefs setObject:tv.text forKey:@"user_bio"];
-	
-	NSData *imageData = UIImagePNGRepresentation(iv.image);
-	NSString *path = [self documentsPathForFileName:@"profilePic.png"];
-	NSLog(@"Path: %@", path);
-	[imageData writeToFile:path atomically:YES];
-	[userPrefs setObject:path forKey:@"user_pic"];
-	
-	[userPrefs synchronize];
-	
-	[[[UIAlertView alloc] initWithTitle:@"Saved!" message:@"Your Bio has been saved succesfully. You may now register as a candidate for elections." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
+    [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+    
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"users", @"controller", @"update_bio", @"method", [defaults objectForKey:@"user_id"], @"user_id", tv.text, @"bio", nil];
+    [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [DejalActivityView removeView];
+        NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        SBJsonParser *parser = [[SBJsonParser alloc] init];
+        NSDictionary *response = [parser objectWithString:responseStr];
+        NSLog(@"%@", responseStr);
+        if ([response objectForKey:@"did_succeed"])
+        {
+            [defaults setObject:@"YES" forKey:@"bio_setup"];
+            [defaults setObject:tv.text forKey:@"user_bio"];
+            [[[UIAlertView alloc] initWithTitle:@"Saved!" message:@"Your Bio has been saved successfully. You may now register as a candidate for elections." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            [tv resignFirstResponder];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+            [alert show];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        /* dispatch_async(dispatch_get_main_queue(), ^{
+         [errors addObject:@"94"];
+         [self checkStatus];
+         });*/
+    }];
 }
 
 -(void) cancelEdit:(id)sender {
@@ -90,18 +114,18 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
-		return 44.0f;
+		return 54.0f;
 	} else if (indexPath.section == 1 && indexPath.row == 0) {
 		return 65.0f;
 	} else {
-		return 130.0f;
+		return 140.0f;
 	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-	
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	if (indexPath.section == 0) {
 		cell.textLabel.text = @"Logout";
 	} else {
@@ -117,12 +141,14 @@
 			[cell.contentView addSubview:iv];
 			
 		} else {
-			UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, 25)];
+			UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(14, 16, 100, 25)];
 			lbl.text = @"Bio";
+            lbl.font = [UIFont fontWithName:@"HelveticaNeue" size:19.0];
 			[cell.contentView addSubview:lbl];
 			
-			tv = [[UITextView alloc] initWithFrame:CGRectMake(5, 25, cell.bounds.size.width, 100)];
+			tv = [[UITextView alloc] initWithFrame:CGRectMake(12, 40, cell.bounds.size.width, 100)];
 			tv.delegate = self;
+            tv.font = [UIFont fontWithName:@"HelveticaNeue" size:18.0];
 			[cell.contentView addSubview:tv];
 		}
 	}
@@ -151,10 +177,49 @@
 
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	NSLog(@"Finished picking");
+    [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
 	UIImage *image = info[UIImagePickerControllerEditedImage];
 	iv.image = image;
 	[self dismissViewControllerAnimated:YES completion:^{
 		pickingImage = NO;
+        NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+        
+        NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                @"users", @"controller", @"update_profile_photo", @"method",
+                                [defaults objectForKey:@"user_id"], @"user_id", nil];
+        NSData *imageToUpload = UIImageJPEGRepresentation(iv.image, 100);
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+        AFHTTPClient *client= [AFHTTPClient clientWithBaseURL:url];
+        
+        NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:[defaults objectForKey:@"apiFile"] parameters:params constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+            if (iv.image != nil)
+            {
+                [formData appendPartWithFileData: imageToUpload name:@"file" fileName:@".jpeg" mimeType:@"image/jpeg"];
+            }
+        }];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            NSLog(responseStr);
+            NSData *imageData = UIImagePNGRepresentation(iv.image);
+            NSString *path = [self documentsPathForFileName:@"profilePic.png"];
+            NSLog(@"Path: %@", path);
+            [imageData writeToFile:path atomically:YES];
+            [userPrefs setObject:path forKey:@"user_pic"];
+            [userPrefs synchronize];
+            [DejalActivityView removeView];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if([operation.response statusCode] == 403){
+                NSLog(@"Upload Failed");
+                return;
+            }
+            NSLog(@"error: %@", [operation error]);
+            
+        }];
+        
+        [operation start];
 	}];
 }
 
@@ -222,7 +287,18 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 1 && indexPath.row == 0) {
+    if (indexPath.section == 0)
+    {
+        NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+        [defaults removeObjectForKey:@"user_id"];
+        [defaults removeObjectForKey:@"user_bio"];
+        [defaults removeObjectForKey:@"setup_bio"];
+        [defaults removeObjectForKey:@"user_pic"];
+        [defaults removeObjectForKey:@"is_logged_in"];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+	else if (indexPath.section == 1 && indexPath.row == 0) {
 		[self choosePicture:iv];
 	}
 }
