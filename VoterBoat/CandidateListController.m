@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "DejalActivityView.h"
 #import "SBJsonParser.h"
+#import "CandidateProfileController.h"
 
 @interface CandidateListController ()
 
@@ -46,6 +47,8 @@
 	iv.frame = CGRectMake(0, -260, self.view.bounds.size.width, 260);
 	iv.contentMode = UIViewContentModeScaleAspectFill;
 	[self.view addSubview:iv];
+    
+    self.title = @"Candidates";
 	
 	UIView *view = [[UIView alloc] initWithFrame:iv.frame];
 	view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.19];
@@ -67,12 +70,10 @@
 {
 	[super viewWillAppear:animated];
 	[self loadCandidates];
-	[self.navigationController setNavigationBarHidden:YES];
 }
 
 -(void) viewWillDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
-	[self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)loadCandidates
@@ -143,6 +144,7 @@
 	cell.textLabel.text = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
 	
 	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height+30, 60.0f)];
+    lbl.text = @"Info";
 	/*if ([[[candidates objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
 		lbl.text = @"Open";
 	else
@@ -159,6 +161,16 @@
 	return cell;
 	
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CandidateProfileController *newView = [[CandidateProfileController alloc] initWithNibName:nil bundle:nil];
+    newView.user_id = [[[candidates objectAtIndex:indexPath.row] objectForKey:@"user_id"] intValue];
+    newView.user_name = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newView];
+    [navigationController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 

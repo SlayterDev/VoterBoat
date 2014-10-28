@@ -54,7 +54,7 @@
 	
 	colors = @[[UIColor colorWithRed:68.0/255.0 green:96.0/255.0 blue:122.0/255.0 alpha:1.0], [UIColor colorWithRed:231.0/255.0 green:76.0/255.0 blue:60.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:196.0/255.0 blue:215.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:195.0/255.0 blue:137.0/255.0 alpha:1.0], [UIColor colorWithRed:0.0/255.0 green:138.0/255.0 blue:132.0/255.0 alpha:1.0], [UIColor colorWithRed:246.0/255.0 green:194.0/255.0 blue:66.0/255.0 alpha:1.0], [UIColor colorWithRed:227.0/255.0 green:108.0/255.0 blue:38.0/255.0 alpha:1.0]];
 	
-	self.tableView.backgroundColor = [colors objectAtIndex:0];
+	self.tableView.backgroundColor = [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0];
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 	
 }
@@ -144,11 +144,15 @@
     
     cell.textLabel.text = [[elections objectAtIndex:indexPath.row] objectForKey:@"name"];
     
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height+30, 60.0f)];
-    if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
-        lbl.text = @"Open";
-    else
-        lbl.text = @"Closed";
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-50, 0, cell.frame.size.height+50, 60.0f)];
+    if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"] && [[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"T"])
+        lbl.text = @"Vote";
+    else if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"P"])
+        lbl.text = @"Pending";
+    else if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"F"])
+        lbl.text = @"Register";
+    else if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"U"])
+        lbl.text = @"Upcoming";
     lbl.textAlignment = NSTextAlignmentCenter;
     lbl.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     [cell.contentView addSubview:lbl];
@@ -162,21 +166,81 @@
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	bool isRegistered = [[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] boolValue];
-	
-	if (!isRegistered) {
+	if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"F"]) {
 		UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Register" message:@"Would you like to register as a candidate or a voter?" preferredStyle:UIAlertControllerStyleAlert];
-		UIAlertAction *voter = [UIAlertAction actionWithTitle:@"Voter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
-			controller.picture = 2;
-			controller.branch = self.tabBarItem.title;
-			[self presentViewController:controller animated:YES completion:nil];
-		}];
+        UIAlertAction *voter = [UIAlertAction actionWithTitle:@"Voter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            /*CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
+             controller.picture = 0;
+             controller.branch = self.tabBarItem.title;
+             controller.electionID = [[[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
+             [self.navigationController pushViewController:controller animated:YES];*/
+            
+            NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+            NSLog(@"USER ID: %@", [defaults objectForKey:@"user_id"]);
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+            AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"register_election", @"method", [defaults objectForKey:@"user_id"], @"user_id", [[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"], @"election_id", nil];
+            [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [DejalActivityView removeView];
+                NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                SBJsonParser *parser = [[SBJsonParser alloc] init];
+                NSDictionary *response = [parser objectWithString:responseStr];
+                NSLog(@"%@", responseStr);
+                if ([response objectForKey:@"did_succeed"])
+                {
+                    [[[UIAlertView alloc] initWithTitle:@"Success" message:@"You have registered as a voter. You must be verified by an admin before voting in this election." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+                }
+                else
+                {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+                    [alert show];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                /* dispatch_async(dispatch_get_main_queue(), ^{
+                 [errors addObject:@"94"];
+                 [self checkStatus];
+                 });*/
+            }];
+        }];
 		[alert addAction:voter];
 		
-		UIAlertAction *candidate = [UIAlertAction actionWithTitle:@"Candidate" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-			
-		}];
+        UIAlertAction *candidate = [UIAlertAction actionWithTitle:@"Candidate" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+            if ([[defaults objectForKey:@"bio_setup"] isEqualToString:@"YES"])
+            {
+                NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+                NSLog(@"USER ID: %@", [defaults objectForKey:@"user_id"]);
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+                AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+                NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"register_candidate", @"method", [defaults objectForKey:@"user_id"], @"user_id", [[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"], @"election_id", nil];
+                [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [DejalActivityView removeView];
+                    NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                    SBJsonParser *parser = [[SBJsonParser alloc] init];
+                    NSDictionary *response = [parser objectWithString:responseStr];
+                    NSLog(@"%@", responseStr);
+                    if ([response objectForKey:@"did_succeed"])
+                    {
+                        [[[UIAlertView alloc] initWithTitle:@"Success" message:@"You have registered as a candidate. You must be verified by an admin before running in this election." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+                    }
+                    else
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+                        [alert show];
+                    }
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    /* dispatch_async(dispatch_get_main_queue(), ^{
+                     [errors addObject:@"94"];
+                     [self checkStatus];
+                     });*/
+                }];
+                
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:@"You must complete your bio in Settings prior to registering as a candidate." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+            }
+        }];
 		[alert addAction:candidate];
 		
 		UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -185,6 +249,18 @@
 		[alert addAction:cancel];
 		[self presentViewController:alert animated:YES completion:nil];
 	}
+    else if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"P"])
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:@"You have already registered for this election. Please wait until your request has been approved by an admin." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+    }
+    else
+    {
+        CandidateListController *controller = [[CandidateListController alloc] initWithStyle:UITableViewStylePlain];
+        controller.picture = 0;
+        controller.branch = self.tabBarItem.title;
+        controller.electionID = [[[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 /*

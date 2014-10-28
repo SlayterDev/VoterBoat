@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "DejalActivityView.h"
 #import "SBJsonParser.h"
+#import "SettingsView.h"
 
 @interface LoginSignupController ()
 
@@ -203,7 +204,7 @@
                     [defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
                     [defaults setObject:@"YES" forKey:@"is_logged_in"];
                     UITabBarController *tabbar = [[UITabBarController alloc] init];
-                    [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+                    [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain], [[UINavigationController alloc] initWithRootViewController:[[SettingsView alloc] initWithStyle:UITableViewStyleGrouped]]]];
                     [self presentViewController:tabbar animated:YES completion:nil];
                 }
                 else
@@ -251,7 +252,7 @@
                 [defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
                 [defaults setObject:@"YES" forKey:@"is_logged_in"];
                 UITabBarController *tabbar = [[UITabBarController alloc] init];
-                [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]]];
+                [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain], [[UINavigationController alloc] initWithRootViewController:[[SettingsView alloc] initWithStyle:UITableViewStyleGrouped]]]];
                 [self presentViewController:tabbar animated:YES completion:nil];
             }
             else
