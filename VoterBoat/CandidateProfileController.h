@@ -14,6 +14,8 @@
 }
 
 @property (nonatomic, assign) int user_id;
+@property (nonatomic, assign) int election_id;
 @property (strong, nonatomic) NSString *user_name;
+@property (nonatomic, assign) BOOL open;
 
 @end

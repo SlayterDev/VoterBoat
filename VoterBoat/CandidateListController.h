@@ -16,5 +16,6 @@
 @property (nonatomic, assign) int picture;
 @property (nonatomic, strong) NSString *branch;
 @property (nonatomic, assign) int electionID;
+@property (nonatomic, assign) BOOL open;
 
 @end

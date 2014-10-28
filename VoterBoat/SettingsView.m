@@ -19,7 +19,7 @@
 
 -(id) initWithStyle:(UITableViewStyle)style {
 	if (self = [super initWithStyle:style]) {
-		self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:nil tag:2];
+		self.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"settings-32.png"] tag:3];
 	}
 	
 	return self;
@@ -43,8 +43,16 @@
 
 -(void) viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
-    self.title = @"Settings";
+	
+	self.title = @"Settings";
+	
+	if (!pickingImage) {
+		[self getBio];
+		NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+		[iv setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.usesweetspot.com/images/users/%@voterboat.jpeg", [userPrefs objectForKey:@"user_id"]]] placeholderImage:nil];
+	}
+	/*NSUserDefaults *userPrefs = [NSUserDefaults standardUserDefaults];
+	 
 	if ([userPrefs objectForKey:@"user_bio"] && [userPrefs objectForKey:@"user_pic"] && !pickingImage) {
 		tv.text = [userPrefs objectForKey:@"user_bio"];
 		
@@ -52,11 +60,50 @@
 		if (![NSData dataWithContentsOfFile:[userPrefs objectForKey:@"user_pic"]])
 			NSLog(@"Something went wrong");
 		iv.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:[userPrefs objectForKey:@"user_pic"]]];
-	}
+	}*/
+}
+
+
+- (void)getBio
+{
+	[DejalBezelActivityView activityViewForView:self.view withLabel:@""];
+	[DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+	
+	NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+	AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+	NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"users", @"controller", @"get_user_bio", @"method", [defaults objectForKey:@"user_id"], @"user_id", nil];
+	[httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		[DejalActivityView removeView];
+		NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+		SBJsonParser *parser = [[SBJsonParser alloc] init];
+		NSDictionary *response = [parser objectWithString:responseStr];
+		NSLog(@"%@", responseStr);
+		if ([response objectForKey:@"did_succeed"])
+		{
+			tv.text = [response objectForKey:@"bio"];
+		}
+		else
+		{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+			[alert show];
+		}
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		/* dispatch_async(dispatch_get_main_queue(), ^{
+		 [errors addObject:@"94"];
+		 [self checkStatus];
+		 });*/
+	}];
+	
 }
 
 -(void) saveData:(id)sender {
-    
+	
+	if ([tv.text isEqualToString:@""]) {
+		[[[UIAlertView alloc] initWithTitle:@"Error" message:@"You must fill out your bio before saving." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+		return;
+	}
+	
     [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
     [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
     
