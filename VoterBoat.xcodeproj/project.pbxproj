@@ -34,6 +34,8 @@
 		029F523919F957C6009D150B /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 029F523719F957C6009D150B /* SettingsView.xib */; };
 		029F523B19F95C1B009D150B /* cameraSquared.png in Resources */ = {isa = PBXBuildFile; fileRef = 029F523A19F95C1B009D150B /* cameraSquared.png */; };
 		02AC1F1D19E4430F00A664EE /* Images-2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02AC1F1C19E4430F00A664EE /* Images-2.xcassets */; };
+		02B788D719FFEAB0000CD7B5 /* settings-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B788D519FFEAB0000CD7B5 /* settings-32.png */; };
+		02B788D819FFEAB0000CD7B5 /* settings-75.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B788D619FFEAB0000CD7B5 /* settings-75.png */; };
 		02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */; };
 		A955FEBA19FF3FD9009EBB93 /* CandidateProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */; };
 		DB2CF42F19E6E0230092DF79 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF41D19E6E0230092DF79 /* AFHTTPClient.m */; };
@@ -103,6 +105,8 @@
 		029F523719F957C6009D150B /* SettingsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
 		029F523A19F95C1B009D150B /* cameraSquared.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraSquared.png; sourceTree = "<group>"; };
 		02AC1F1C19E4430F00A664EE /* Images-2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Images-2.xcassets"; sourceTree = "<group>"; };
+		02B788D519FFEAB0000CD7B5 /* settings-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-32.png"; sourceTree = "<group>"; };
+		02B788D619FFEAB0000CD7B5 /* settings-75.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-75.png"; sourceTree = "<group>"; };
 		02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1289493_21101753.jpg; sourceTree = "<group>"; };
 		A955FEB819FF3FD9009EBB93 /* CandidateProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandidateProfileController.h; sourceTree = "<group>"; };
 		A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandidateProfileController.m; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 		0286148619DB00D700F235EF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				02B788D519FFEAB0000CD7B5 /* settings-32.png */,
+				02B788D619FFEAB0000CD7B5 /* settings-75.png */,
 				029F523A19F95C1B009D150B /* cameraSquared.png */,
 				0286149119DB01E400F235EF /* law-32.png */,
 				0286148F19DB01CD00F235EF /* brandenburg_gate-32.png */,
@@ -407,6 +413,8 @@
 				029F523919F957C6009D150B /* SettingsView.xib in Resources */,
 				02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */,
 				02137C7719CB32B600F3A61F /* Images.xcassets in Resources */,
+				02B788D719FFEAB0000CD7B5 /* settings-32.png in Resources */,
+				02B788D819FFEAB0000CD7B5 /* settings-75.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

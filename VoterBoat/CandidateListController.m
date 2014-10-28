@@ -166,8 +166,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CandidateProfileController *newView = [[CandidateProfileController alloc] initWithNibName:nil bundle:nil];
+	newView.election_id = [[[candidates objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
     newView.user_id = [[[candidates objectAtIndex:indexPath.row] objectForKey:@"user_id"] intValue];
     newView.user_name = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
+	newView.open = self.open;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newView];
     [navigationController setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     [self presentViewController:navigationController animated:YES completion:nil];

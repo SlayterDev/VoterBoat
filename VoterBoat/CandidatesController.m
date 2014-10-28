@@ -57,6 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	[elections removeAllObjects];
     [self loadElections];
 	[self.navigationController setNavigationBarHidden:YES];
 }
@@ -259,6 +260,12 @@
         controller.picture = 0;
         controller.branch = self.tabBarItem.title;
         controller.electionID = [[[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
+		
+		if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
+			controller.open = YES;
+		else
+			controller.open = NO;
+		
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
