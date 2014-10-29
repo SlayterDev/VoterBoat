@@ -172,10 +172,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	
 	if (indexPath.section == 0) {
 		cell.textLabel.text = @"Logout";
 	} else {
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		if (indexPath.row == 0) {
 			cell.textLabel.text = @"Profile Picture";
 			// TODO: get picture
