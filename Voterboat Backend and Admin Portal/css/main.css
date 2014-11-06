@@ -1,0 +1,13 @@
+/* VOTERBOAT MAIN CSS */
+body {margin: 0px; padding: 0px; background-color: #DBDBDB;}
+a {text-decoration: none; color: #000000;}
+
+/* DIVS */
+#header {width: 100%; height: 39px; padding-top: 11px; background-color: #FFFFFF; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; color: #FFFFFF; font-size: 15pt;}
+#form {width: 400px; height: auto; background-color: #FFFFFF; margin-left: auto; margin-right: auto; margin-top: 40px; border-radius: 6px; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; padding: 20px;}
+#container {width: 800px; height: auto; background-color: #FFFFFF; margin-left: auto; margin-right: auto; margin-top: 40px; border-radius: 6px; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; padding: 20px;}
+
+/* CLASSES */
+.form_btn {width: 200px; outline: none; height: 50px; font-size: 14pt; background-color: #2ecc71; border: none; color: #FFFFFF; opacity: 0.5; font-family: "HelveticaNeue-Thin", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; border-radius: 6px; cursor: pointer;}
+.form_btn:hover {opacity: 1.0;}
+.form_field {width: 260px; height: 40px; border: 1px solid #DBDBDB; background-color: #FFFFFF; outline: none; font-family: "HelveticaNeue-Thin", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; border-radius: 6px; font-size: 14pt; padding-left: 10px; padding-right: 10px;}
