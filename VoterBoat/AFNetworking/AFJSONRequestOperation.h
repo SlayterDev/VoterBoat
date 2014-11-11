@@ -64,7 +64,7 @@
   
  @return A new JSON request operation
  */
-***REMOVED*** (instancetype)JSONRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)JSONRequestOperationWithRequest:(NSURLRequest *)urlRequest
                                         success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
                                         failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure;
 

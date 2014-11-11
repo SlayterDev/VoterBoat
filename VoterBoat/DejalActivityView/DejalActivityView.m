@@ -64,7 +64,7 @@ static DejalActivityView *dejalActivityView = nil;
  Written by DJS 2009-07.
 */
 
-***REMOVED*** (DejalActivityView *)currentActivityView;
++ (DejalActivityView *)currentActivityView;
 {
     return dejalActivityView;
 }
@@ -79,7 +79,7 @@ static DejalActivityView *dejalActivityView = nil;
  Changed by DJS 2011-08 to remove the "new" prefix again.
 */
 
-***REMOVED*** (DejalActivityView *)activityViewForView:(UIView *)addToView;
++ (DejalActivityView *)activityViewForView:(UIView *)addToView;
 {
     return [self activityViewForView:addToView withLabel:NSLocalizedString(@"Loading...", @"Default DejalActivtyView label text") width:0];
 }
@@ -94,7 +94,7 @@ static DejalActivityView *dejalActivityView = nil;
  Changed by DJS 2011-08 to remove the "new" prefix again.
 */
 
-***REMOVED*** (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText;
++ (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText;
 {
     return [self activityViewForView:addToView withLabel:labelText width:0];
 }
@@ -109,7 +109,7 @@ static DejalActivityView *dejalActivityView = nil;
  Changed by DJS 2011-08 to remove the "new" prefix again, and move the singleton stuff to here.
 */
 
-***REMOVED*** (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText width:(NSUInteger)aLabelWidth;
++ (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText width:(NSUInteger)aLabelWidth;
 {
     // Immediately remove any existing activity view:
     if (dejalActivityView)
@@ -173,7 +173,7 @@ static DejalActivityView *dejalActivityView = nil;
  Changed by DJS 2009-09 to disable the network activity indicator if it was shown by this view.
 */
 
-***REMOVED*** (void)removeView;
++ (void)removeView;
 {
     if (!dejalActivityView)
         return;
@@ -324,8 +324,8 @@ static DejalActivityView *dejalActivityView = nil;
     
     // Calculate the size and position for the border view: with the indicator to the left of the label, and centered in the receiver:
 	CGRect borderFrame = CGRectZero;
-    borderFrame.size.width = self.activityIndicator.frame.size.width ***REMOVED*** textSize.width ***REMOVED*** 25.0;
-    borderFrame.size.height = self.activityIndicator.frame.size.height ***REMOVED*** 10.0;
+    borderFrame.size.width = self.activityIndicator.frame.size.width + textSize.width + 25.0;
+    borderFrame.size.height = self.activityIndicator.frame.size.height + 10.0;
     borderFrame.origin.x = floor(0.5 * (self.frame.size.width - borderFrame.size.width));
     borderFrame.origin.y = floor(0.5 * (self.frame.size.height - borderFrame.size.height - 20.0));
     self.borderView.frame = borderFrame;
@@ -600,7 +600,7 @@ static DejalActivityView *dejalActivityView = nil;
     
     // Require that the label be at least as wide as the indicator, since that width is used for the border view:
     if (textSize.width < self.activityIndicator.frame.size.width)
-        textSize.width = self.activityIndicator.frame.size.width ***REMOVED*** 10.0;
+        textSize.width = self.activityIndicator.frame.size.width + 10.0;
     
     // If there's no label text, don't need to allow height for it:
     if (self.activityLabel.text.length == 0)
@@ -610,8 +610,8 @@ static DejalActivityView *dejalActivityView = nil;
     
     // Calculate the size and position for the border view: with the indicator vertically above the label, and centered in the receiver:
 	CGRect borderFrame = CGRectZero;
-    borderFrame.size.width = textSize.width ***REMOVED*** 30.0;
-    borderFrame.size.height = self.activityIndicator.frame.size.height ***REMOVED*** textSize.height ***REMOVED*** 40.0;
+    borderFrame.size.width = textSize.width + 30.0;
+    borderFrame.size.height = self.activityIndicator.frame.size.height + textSize.height + 40.0;
     borderFrame.origin.x = floor(0.5 * (self.frame.size.width - borderFrame.size.width));
     borderFrame.origin.y = floor(0.5 * (self.frame.size.height - borderFrame.size.height));
     self.borderView.frame = borderFrame;
@@ -691,7 +691,7 @@ static DejalActivityView *dejalActivityView = nil;
  Written by DJS 2009-07.
 */
 
-***REMOVED*** (void)removeViewAnimated:(BOOL)animated;
++ (void)removeViewAnimated:(BOOL)animated;
 {
     if (!dejalActivityView)
         return;
@@ -722,7 +722,7 @@ static DejalActivityView *dejalActivityView = nil;
  Changed by DJS 2011-08 to remove the "new" prefix again.
 */
 
-***REMOVED*** (DejalKeyboardActivityView *)activityView;
++ (DejalKeyboardActivityView *)activityView;
 {
     return [self activityViewWithLabel:NSLocalizedString(@"Loading...", @"Default DejalActivtyView label text")];
 }
@@ -737,7 +737,7 @@ static DejalActivityView *dejalActivityView = nil;
  Changed by DJS 2011-08 to remove the "new" prefix again.
 */
 
-***REMOVED*** (DejalKeyboardActivityView *)activityViewWithLabel:(NSString *)labelText;
++ (DejalKeyboardActivityView *)activityViewWithLabel:(NSString *)labelText;
 {
     UIView *keyboardView = [[UIApplication sharedApplication] keyboardView];
     

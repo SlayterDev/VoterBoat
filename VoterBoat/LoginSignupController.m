@@ -163,7 +163,7 @@
 -(void) goToNextField:(id)sender {
 	NSLog(@"Go to next");
 	UITextField *tf = (UITextField *)sender;
-	int newTag = (int)tf.tag ***REMOVED*** 1;
+	int newTag = (int)tf.tag + 1;
 	
 	if (newTag < fields.count) {
 		UITextField *newTf = [fields objectAtIndex:newTag];

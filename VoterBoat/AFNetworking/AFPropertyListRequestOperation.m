@@ -44,7 +44,7 @@ static dispatch_queue_t property_list_request_operation_processing_queue() {
 @synthesize propertyListFormat = _propertyListFormat;
 @synthesize propertyListError = _propertyListError;
 
-***REMOVED*** (instancetype)propertyListRequestOperationWithRequest:(NSURLRequest *)request
++ (instancetype)propertyListRequestOperationWithRequest:(NSURLRequest *)request
 												success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id propertyList))success
 												failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id propertyList))failure
 {
@@ -96,11 +96,11 @@ static dispatch_queue_t property_list_request_operation_processing_queue() {
 
 #pragma mark - AFHTTPRequestOperation
 
-***REMOVED*** (NSSet *)acceptableContentTypes {
++ (NSSet *)acceptableContentTypes {
     return [NSSet setWithObjects:@"application/x-plist", nil];
 }
 
-***REMOVED*** (BOOL)canProcessRequest:(NSURLRequest *)request {
++ (BOOL)canProcessRequest:(NSURLRequest *)request {
     return [[[request URL] pathExtension] isEqualToString:@"plist"] || [super canProcessRequest:request];
 }
 

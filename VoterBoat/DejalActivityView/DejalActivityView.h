@@ -48,22 +48,22 @@
 @property (nonatomic) BOOL showNetworkActivityIndicator;
 
 //  Returns the currently displayed activity view, or nil if there isn't one:
-***REMOVED*** (DejalActivityView *)currentActivityView;
++ (DejalActivityView *)currentActivityView;
 
 // Creates and adds an activity view centered within the specified view, using the label "Loading...".  Returns the activity view, already added as a subview of the specified view:
-***REMOVED*** (DejalActivityView *)activityViewForView:(UIView *)addToView;
++ (DejalActivityView *)activityViewForView:(UIView *)addToView;
 
 // Creates and adds an activity view centered within the specified view, using the specified label.  Returns the activity view, already added as a subview of the specified view:
-***REMOVED*** (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText;
++ (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText;
 
 // Creates and adds an activity view centered within the specified view, using the specified label and a fixed label width.  The fixed width is useful if you want to change the label text while the view is visible.  Returns the activity view, already added as a subview of the specified view:
-***REMOVED*** (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText width:(NSUInteger)aLabelWidth;
++ (DejalActivityView *)activityViewForView:(UIView *)addToView withLabel:(NSString *)labelText width:(NSUInteger)aLabelWidth;
 
 // Designated initializer.  Configures the activity view using the specified label text and width, and adds as a subview of the specified view:
 - (DejalActivityView *)initForView:(UIView *)addToView withLabel:(NSString *)labelText width:(NSUInteger)aLabelWidth;
 
 // Immediately removes and releases the view without any animation:
-***REMOVED*** (void)removeView;
++ (void)removeView;
 
 @end
 
@@ -107,7 +107,7 @@
 @interface DejalBezelActivityView : DejalActivityView
 
 // Animates the view out from the superview and releases it, or simply removes and releases it immediately if not animating:
-***REMOVED*** (void)removeViewAnimated:(BOOL)animated;
++ (void)removeViewAnimated:(BOOL)animated;
 
 @end
 
@@ -120,10 +120,10 @@
 @interface DejalKeyboardActivityView : DejalBezelActivityView
 
 // Creates and adds a keyboard-style activity view, using the label "Loading...".  Returns the activity view, already covering the keyboard, or nil if the keyboard isn't currently displayed:
-***REMOVED*** (DejalKeyboardActivityView *)activityView;
++ (DejalKeyboardActivityView *)activityView;
 
 // Creates and adds a keyboard-style activity view, using the specified label.  Returns the activity view, already covering the keyboard, or nil if the keyboard isn't currently displayed:
-***REMOVED*** (DejalKeyboardActivityView *)activityViewWithLabel:(NSString *)labelText;
++ (DejalKeyboardActivityView *)activityViewWithLabel:(NSString *)labelText;
 
 @end
 

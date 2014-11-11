@@ -44,7 +44,7 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 @synthesize JSONError = _JSONError;
 @dynamic lock;
 
-***REMOVED*** (instancetype)JSONRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)JSONRequestOperationWithRequest:(NSURLRequest *)urlRequest
 										success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON))success
 										failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON))failure
 {
@@ -102,11 +102,11 @@ static dispatch_queue_t json_request_operation_processing_queue() {
 
 #pragma mark - AFHTTPRequestOperation
 
-***REMOVED*** (NSSet *)acceptableContentTypes {
++ (NSSet *)acceptableContentTypes {
     return [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", nil];
 }
 
-***REMOVED*** (BOOL)canProcessRequest:(NSURLRequest *)request {
++ (BOOL)canProcessRequest:(NSURLRequest *)request {
     return [[[request URL] pathExtension] isEqualToString:@"json"] || [super canProcessRequest:request];
 }
 

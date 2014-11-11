@@ -53,7 +53,7 @@
 
  ## URL Construction Using Relative Paths
 
- Both `-requestWithMethod:path:parameters:` and `-multipartFormRequestWithMethod:path:parameters:constructingBodyWithBlock:` construct URLs from the path relative to the `-baseURL`, using `NSURL ***REMOVED***URLWithString:relativeToURL:`. Below are a few examples of how `baseURL` and relative paths interact:
+ Both `-requestWithMethod:path:parameters:` and `-multipartFormRequestWithMethod:path:parameters:constructingBodyWithBlock:` construct URLs from the path relative to the `-baseURL`, using `NSURL +URLWithString:relativeToURL:`. Below are a few examples of how `baseURL` and relative paths interact:
 
     NSURL *baseURL = [NSURL URLWithString:@"http://example.com/v1/"];
     [NSURL URLWithString:@"foo" relativeToURL:baseURL];                  // http://example.com/v1/foo
@@ -161,7 +161,7 @@ typedef enum {
 
  @return The newly-initialized HTTP client
  */
-***REMOVED*** (instancetype)clientWithBaseURL:(NSURL *)url;
++ (instancetype)clientWithBaseURL:(NSURL *)url;
 
 /**
  Initializes an `AFHTTPClient` object with the specified base URL.

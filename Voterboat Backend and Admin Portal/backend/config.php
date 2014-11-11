@@ -6,7 +6,7 @@
     ini_set("memory_limit", "1024M");
     
     // Connect to Database
-    mysql_connect("***REMOVED***", "***REMOVED***", "***REMOVED***") OR DIE ("Unable to connect to database! Please try again later.");
+    mysql_connect("bitzyserver.cmmxja26v5cc.us-west-2.rds.amazonaws.com", "jstauffer94", "J\$tauf34") OR DIE ("Unable to connect to database! Please try again later.");
     mysql_select_db("voterboat");
     
     // Handle Errors
@@ -72,7 +72,7 @@
     {
         $successJSON = array("did_succeed" => true);
         if ($data)
-            $successJSON = $successJSON ***REMOVED*** $data;
+            $successJSON = $successJSON + $data;
         echo json_encode($successJSON);
         exit(0);
     }

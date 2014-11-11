@@ -175,7 +175,7 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
 @synthesize redirectResponse = _redirectResponse;
 @synthesize lock = _lock;
 
-***REMOVED*** (void)networkRequestThreadEntryPoint:(id __unused)object {
++ (void)networkRequestThreadEntryPoint:(id __unused)object {
     @autoreleasepool {
         [[NSThread currentThread] setName:@"AFNetworking"];
 
@@ -185,7 +185,7 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
     }
 }
 
-***REMOVED*** (NSThread *)networkRequestThread {
++ (NSThread *)networkRequestThread {
     static NSThread *_networkRequestThread = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
@@ -196,7 +196,7 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
     return _networkRequestThread;
 }
 
-***REMOVED*** (NSArray *)pinnedCertificates {
++ (NSArray *)pinnedCertificates {
     static NSArray *_pinnedCertificates = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -215,7 +215,7 @@ static BOOL AFSecKeyIsEqualToKey(SecKeyRef key1, SecKeyRef key2) {
     return _pinnedCertificates;
 }
 
-***REMOVED*** (NSArray *)pinnedPublicKeys {
++ (NSArray *)pinnedPublicKeys {
     static NSArray *_pinnedPublicKeys = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -591,7 +591,7 @@ willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challe
         CFIndex certificateCount = SecTrustGetCertificateCount(serverTrust);
         NSMutableArray *trustChain = [NSMutableArray arrayWithCapacity:certificateCount];
         
-        for (CFIndex i = 0; i < certificateCount; i***REMOVED******REMOVED***) {
+        for (CFIndex i = 0; i < certificateCount; i++) {
             SecCertificateRef certificate = SecTrustGetCertificateAtIndex(serverTrust, i);
             
             if (self.SSLPinningMode == AFSSLPinningModeCertificate) {
@@ -739,7 +739,7 @@ didReceiveResponse:(NSURLResponse *)response
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.totalBytesRead ***REMOVED***= length;
+        self.totalBytesRead += length;
         
         if (self.downloadProgress) {
             self.downloadProgress(length, self.totalBytesRead, self.response.expectedContentLength);

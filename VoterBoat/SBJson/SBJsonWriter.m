@@ -47,7 +47,7 @@
 
 static NSMutableCharacterSet *kEscapeChars;
 
-***REMOVED*** (void)initialize {
++ (void)initialize {
 	kEscapeChars = [NSMutableCharacterSet characterSetWithRange: NSMakeRange(0,32)];
 	[kEscapeChars addCharactersInString: @"\"\\"];
 }
@@ -83,7 +83,7 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (NSString*)indent {
-    return [@"\n" stringByPaddingToLength:1 ***REMOVED*** 2 * depth withString:@" " startingAtIndex:0];
+    return [@"\n" stringByPaddingToLength:1 + 2 * depth withString:@" " startingAtIndex:0];
 }
 
 - (BOOL)appendValue:(id)fragment into:(NSMutableString*)json {
@@ -126,7 +126,7 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (BOOL)appendArray:(NSArray*)fragment into:(NSMutableString*)json {
-    if (maxDepth && ***REMOVED******REMOVED***depth > maxDepth) {
+    if (maxDepth && ++depth > maxDepth) {
         [self addErrorWithCode:EDEPTH description: @"Nested too deep"];
         return NO;
     }
@@ -155,7 +155,7 @@ static NSMutableCharacterSet *kEscapeChars;
 }
 
 - (BOOL)appendDictionary:(NSDictionary*)fragment into:(NSMutableString*)json {
-    if (maxDepth && ***REMOVED******REMOVED***depth > maxDepth) {
+    if (maxDepth && ++depth > maxDepth) {
         [self addErrorWithCode:EDEPTH description: @"Nested too deep"];
         return NO;
     }
@@ -209,7 +209,7 @@ static NSMutableCharacterSet *kEscapeChars;
         
     } else {
         NSUInteger length = [fragment length];
-        for (NSUInteger i = 0; i < length; i***REMOVED******REMOVED***) {
+        for (NSUInteger i = 0; i < length; i++) {
             unichar uc = [fragment characterAtIndex:i];
             switch (uc) {
                 case '"':   [json appendString:@"\\\""];       break;

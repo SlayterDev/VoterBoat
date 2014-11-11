@@ -70,28 +70,28 @@
 
  By default, this is the range 200 to 299, inclusive.
  */
-***REMOVED*** (NSIndexSet *)acceptableStatusCodes;
++ (NSIndexSet *)acceptableStatusCodes;
 
 /**
- Adds status codes to the set of acceptable HTTP status codes returned by `***REMOVED***acceptableStatusCodes` in subsequent calls by this class and its descendants.
+ Adds status codes to the set of acceptable HTTP status codes returned by `+acceptableStatusCodes` in subsequent calls by this class and its descendants.
 
  @param statusCodes The status codes to be added to the set of acceptable HTTP status codes
  */
-***REMOVED*** (void)addAcceptableStatusCodes:(NSIndexSet *)statusCodes;
++ (void)addAcceptableStatusCodes:(NSIndexSet *)statusCodes;
 
 /**
  Returns an `NSSet` object containing the acceptable MIME types. When non-`nil`, the operation will set the `error` property to an error in `AFErrorDomain`. See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17
 
  By default, this is `nil`.
  */
-***REMOVED*** (NSSet *)acceptableContentTypes;
++ (NSSet *)acceptableContentTypes;
 
 /**
- Adds content types to the set of acceptable MIME types returned by `***REMOVED***acceptableContentTypes` in subsequent calls by this class and its descendants.
+ Adds content types to the set of acceptable MIME types returned by `+acceptableContentTypes` in subsequent calls by this class and its descendants.
 
  @param contentTypes The content types to be added to the set of acceptable MIME types
  */
-***REMOVED*** (void)addAcceptableContentTypes:(NSSet *)contentTypes;
++ (void)addAcceptableContentTypes:(NSSet *)contentTypes;
 
 
 ///-----------------------------------------------------
@@ -103,7 +103,7 @@
 
  @param urlRequest The request that is determined to be supported or not supported for this class.
  */
-***REMOVED*** (BOOL)canProcessRequest:(NSURLRequest *)urlRequest;
++ (BOOL)canProcessRequest:(NSURLRequest *)urlRequest;
 
 ///-----------------------------------------------------------
 /// @name Setting Completion Block Success / Failure Callbacks

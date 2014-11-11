@@ -75,8 +75,8 @@ static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
     NSRange range = NSMakeRange([indexSet firstIndex], 1);
     while (range.location != NSNotFound) {
         NSUInteger nextIndex = [indexSet indexGreaterThanIndex:range.location];
-        while (nextIndex == range.location ***REMOVED*** range.length) {
-            range.length***REMOVED******REMOVED***;
+        while (nextIndex == range.location + range.length) {
+            range.length++;
             nextIndex = [indexSet indexGreaterThanIndex:nextIndex];
         }
 
@@ -88,7 +88,7 @@ static NSString * AFStringFromIndexSet(NSIndexSet *indexSet) {
             [string appendFormat:@"%lu", (long)range.location];
         } else {
             NSUInteger firstIndex = range.location;
-            NSUInteger lastIndex = firstIndex ***REMOVED*** range.length - 1;
+            NSUInteger lastIndex = firstIndex + range.length - 1;
             [string appendFormat:@"%lu-%lu", (long)firstIndex, (long)lastIndex];
         }
 
@@ -290,11 +290,11 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
 
 #pragma mark - AFHTTPRequestOperation
 
-***REMOVED*** (NSIndexSet *)acceptableStatusCodes {
++ (NSIndexSet *)acceptableStatusCodes {
     return [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
 }
 
-***REMOVED*** (void)addAcceptableStatusCodes:(NSIndexSet *)statusCodes {
++ (void)addAcceptableStatusCodes:(NSIndexSet *)statusCodes {
     NSMutableIndexSet *mutableStatusCodes = [[NSMutableIndexSet alloc] initWithIndexSet:[self acceptableStatusCodes]];
     [mutableStatusCodes addIndexes:statusCodes];
     AFSwizzleClassMethodWithClassAndSelectorUsingBlock([self class], @selector(acceptableStatusCodes), ^(__unused id _self) {
@@ -302,11 +302,11 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
     });
 }
 
-***REMOVED*** (NSSet *)acceptableContentTypes {
++ (NSSet *)acceptableContentTypes {
     return nil;
 }
 
-***REMOVED*** (void)addAcceptableContentTypes:(NSSet *)contentTypes {
++ (void)addAcceptableContentTypes:(NSSet *)contentTypes {
     NSMutableSet *mutableContentTypes = [[NSMutableSet alloc] initWithSet:[self acceptableContentTypes] copyItems:YES];
     [mutableContentTypes unionSet:contentTypes];
     AFSwizzleClassMethodWithClassAndSelectorUsingBlock([self class], @selector(acceptableContentTypes), ^(__unused id _self) {
@@ -314,7 +314,7 @@ static void AFSwizzleClassMethodWithClassAndSelectorUsingBlock(Class klass, SEL 
     });
 }
 
-***REMOVED*** (BOOL)canProcessRequest:(NSURLRequest *)request {
++ (BOOL)canProcessRequest:(NSURLRequest *)request {
     if ([[self class] isEqual:[AFHTTPRequestOperation class]]) {
         return YES;
     }

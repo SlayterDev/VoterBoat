@@ -143,7 +143,7 @@
 	
 	cell.textLabel.text = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
 	
-	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height***REMOVED***30, 60.0f)];
+	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height+30, 60.0f)];
     lbl.text = @"Info";
 	/*if ([[[candidates objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
 		lbl.text = @"Open";

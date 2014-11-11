@@ -44,7 +44,7 @@
                 else
                     $registerInfo = array("is_registered" => 'F');
                 
-                $tableData[] = $row ***REMOVED*** $voteInfo ***REMOVED*** $registerInfo;
+                $tableData[] = $row + $voteInfo + $registerInfo;
             }
             $data = array("data" => $tableData);
             display_success($data);
@@ -72,7 +72,7 @@
                 $getUserInfo = mysql_query("SELECT user_name FROM users WHERE user_id='".$row['user_id']."'");
                 $userInfo = mysql_fetch_array($getUserInfo);
                 $userData = array("user_name" => $userInfo['user_name']);
-                $tableData[] = $row ***REMOVED*** $userData;
+                $tableData[] = $row + $userData;
             }
             $data = array("data" => $tableData);
             display_success($data);

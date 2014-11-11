@@ -46,7 +46,7 @@
  not be, but attempting to convert an NSDictionary with non-string keys
  into JSON will throw an exception.
  
- NSNumber instances created with the ***REMOVED***initWithBool: method are
+ NSNumber instances created with the +initWithBool: method are
  converted into the JSON boolean "true" and "false" values, and vice
  versa. Any other NSNumber instances are converted to a JSON number the
  way you would expect.

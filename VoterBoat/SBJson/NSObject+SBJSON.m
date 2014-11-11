@@ -27,7 +27,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "NSObject***REMOVED***SBJSON.h"
+#import "NSObject+SBJSON.h"
 #import "SBJsonWriter.h"
 
 @implementation NSObject (NSObject_SBJSON)

@@ -130,7 +130,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
 #endif
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 										 success:(void (^)(UIImage *image))success
 {
     return [self imageRequestOperationWithRequest:urlRequest imageProcessingBlock:nil success:^(NSURLRequest __unused *request, NSHTTPURLResponse __unused *response, UIImage *image) {
@@ -140,7 +140,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     } failure:nil];
 }
 #elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 										 success:(void (^)(NSImage *image))success
 {
     return [self imageRequestOperationWithRequest:urlRequest imageProcessingBlock:nil success:^(NSURLRequest __unused *request, NSHTTPURLResponse __unused *response, NSImage *image) {
@@ -153,7 +153,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
 
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 							imageProcessingBlock:(UIImage *(^)(UIImage *))imageProcessingBlock
 										 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
 										 failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure
@@ -186,7 +186,7 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
     return requestOperation;
 }
 #elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 							imageProcessingBlock:(NSImage *(^)(NSImage *))imageProcessingBlock
 										 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSImage *image))success
 										 failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure
@@ -272,11 +272,11 @@ static UIImage * AFInflatedImageFromResponseWithDataAtScale(NSHTTPURLResponse *r
 
 #pragma mark - AFHTTPRequestOperation
 
-***REMOVED*** (NSSet *)acceptableContentTypes {
++ (NSSet *)acceptableContentTypes {
     return [NSSet setWithObjects:@"image/tiff", @"image/jpeg", @"image/gif", @"image/png", @"image/ico", @"image/x-icon", @"image/bmp", @"image/x-bmp", @"image/x-xbitmap", @"image/x-win-bitmap", nil];
 }
 
-***REMOVED*** (BOOL)canProcessRequest:(NSURLRequest *)request {
++ (BOOL)canProcessRequest:(NSURLRequest *)request {
     static NSSet * _acceptablePathExtension = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

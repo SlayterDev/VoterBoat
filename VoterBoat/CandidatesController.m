@@ -143,7 +143,7 @@
 	
     cell.textLabel.text = [[elections objectAtIndex:indexPath.row] objectForKey:@"name"];
     
-	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-50, 0, cell.frame.size.height***REMOVED***50, 60.0f)];
+	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-50, 0, cell.frame.size.height+50, 60.0f)];
 	if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"] && [[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"T"])
         lbl.text = @"Vote";
     else if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"P"])

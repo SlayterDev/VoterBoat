@@ -81,10 +81,10 @@
  @return A new image request operation
  */
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 										 success:(void (^)(UIImage *image))success;
 #elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 										 success:(void (^)(NSImage *image))success;
 #endif
 
@@ -99,12 +99,12 @@
  @return A new image request operation
  */
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 							imageProcessingBlock:(UIImage *(^)(UIImage *image))imageProcessingBlock
 										 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
 										 failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;
 #elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-***REMOVED*** (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)imageRequestOperationWithRequest:(NSURLRequest *)urlRequest
 							imageProcessingBlock:(NSImage *(^)(NSImage *image))imageProcessingBlock
 										 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSImage *image))success
 										 failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure;

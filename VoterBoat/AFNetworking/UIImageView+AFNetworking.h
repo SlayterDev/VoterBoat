@@ -1,4 +1,4 @@
-// UIImageView***REMOVED***AFNetworking.h
+// UIImageView+AFNetworking.h
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 //

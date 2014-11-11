@@ -49,7 +49,7 @@ static dispatch_queue_t xml_request_operation_processing_queue() {
 #endif
 @synthesize XMLError = _XMLError;
 
-***REMOVED*** (instancetype)XMLParserRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)XMLParserRequestOperationWithRequest:(NSURLRequest *)urlRequest
 											 success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLParser *XMLParser))success
 											 failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLParser *XMLParser))failure
 {
@@ -68,7 +68,7 @@ static dispatch_queue_t xml_request_operation_processing_queue() {
 }
 
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-***REMOVED*** (instancetype)XMLDocumentRequestOperationWithRequest:(NSURLRequest *)urlRequest
++ (instancetype)XMLDocumentRequestOperationWithRequest:(NSURLRequest *)urlRequest
 											   success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSXMLDocument *document))success
 											   failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, NSXMLDocument *document))failure
 {
@@ -128,11 +128,11 @@ static dispatch_queue_t xml_request_operation_processing_queue() {
 
 #pragma mark - AFHTTPRequestOperation
 
-***REMOVED*** (NSSet *)acceptableContentTypes {
++ (NSSet *)acceptableContentTypes {
     return [NSSet setWithObjects:@"application/xml", @"text/xml", nil];
 }
 
-***REMOVED*** (BOOL)canProcessRequest:(NSURLRequest *)request {
++ (BOOL)canProcessRequest:(NSURLRequest *)request {
     return [[[request URL] pathExtension] isEqualToString:@"xml"] || [super canProcessRequest:request];
 }
 

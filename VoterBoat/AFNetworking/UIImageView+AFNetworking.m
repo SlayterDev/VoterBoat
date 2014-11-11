@@ -1,4 +1,4 @@
-// UIImageView***REMOVED***AFNetworking.m
+// UIImageView+AFNetworking.m
 //
 // Copyright (c) 2011 Gowalla (http://gowalla.com/)
 //
@@ -24,7 +24,7 @@
 #import <objc/runtime.h>
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-#import "UIImageView***REMOVED***AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface AFImageCache : NSCache
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
@@ -56,7 +56,7 @@ static char kAFImageRequestOperationObjectKey;
     objc_setAssociatedObject(self, &kAFImageRequestOperationObjectKey, imageRequestOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-***REMOVED*** (NSOperationQueue *)af_sharedImageRequestOperationQueue {
++ (NSOperationQueue *)af_sharedImageRequestOperationQueue {
     static NSOperationQueue *_af_imageRequestOperationQueue = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -67,7 +67,7 @@ static char kAFImageRequestOperationObjectKey;
     return _af_imageRequestOperationQueue;
 }
 
-***REMOVED*** (AFImageCache *)af_sharedImageCache {
++ (AFImageCache *)af_sharedImageCache {
     static AFImageCache *_af_imageCache = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{

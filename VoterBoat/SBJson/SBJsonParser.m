@@ -50,8 +50,8 @@
 
 @end
 
-#define skipWhitespace(c) while (isspace(*c)) c***REMOVED******REMOVED***
-#define skipDigits(c) while (isdigit(*c)) c***REMOVED******REMOVED***
+#define skipWhitespace(c) while (isspace(*c)) c++
+#define skipDigits(c) while (isdigit(*c)) c++
 
 
 @implementation SBJsonParser
@@ -59,11 +59,11 @@
 static char ctrl[0x22];
 
 
-***REMOVED*** (void)initialize {
++ (void)initialize {
     ctrl[0] = '\"';
     ctrl[1] = '\\';
-    for (int i = 1; i < 0x20; i***REMOVED******REMOVED***)
-        ctrl[i***REMOVED***1] = i;
+    for (int i = 1; i < 0x20; i++)
+        ctrl[i+1] = i;
     ctrl[0x21] = 0;    
 }
 
@@ -118,7 +118,7 @@ static char ctrl[0x22];
 {
     skipWhitespace(c);
     
-    switch (*c***REMOVED******REMOVED***) {
+    switch (*c++) {
         case '{':
             return [self scanRestOfDictionary:(NSMutableDictionary **)o];
             break;
@@ -142,8 +142,8 @@ static char ctrl[0x22];
             c--; // cannot verify number correctly without the first character
             return [self scanNumber:(NSNumber **)o];
             break;
-        case '***REMOVED***':
-            [self addErrorWithCode:EPARSENUM description: @"Leading ***REMOVED*** disallowed in number"];
+        case '+':
+            [self addErrorWithCode:EPARSENUM description: @"Leading + disallowed in number"];
             return NO;
             break;
         case 0x0:
@@ -163,7 +163,7 @@ static char ctrl[0x22];
 - (BOOL)scanRestOfTrue:(NSNumber **)o
 {
     if (!strncmp(c, "rue", 3)) {
-        c ***REMOVED***= 3;
+        c += 3;
         *o = [NSNumber numberWithBool:YES];
         return YES;
     }
@@ -174,7 +174,7 @@ static char ctrl[0x22];
 - (BOOL)scanRestOfFalse:(NSNumber **)o
 {
     if (!strncmp(c, "alse", 4)) {
-        c ***REMOVED***= 4;
+        c += 4;
         *o = [NSNumber numberWithBool:NO];
         return YES;
     }
@@ -184,7 +184,7 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfNull:(NSNull **)o {
     if (!strncmp(c, "ull", 3)) {
-        c ***REMOVED***= 3;
+        c += 3;
         *o = [NSNull null];
         return YES;
     }
@@ -193,7 +193,7 @@ static char ctrl[0x22];
 }
 
 - (BOOL)scanRestOfArray:(NSMutableArray **)o {
-    if (maxDepth && ***REMOVED******REMOVED***depth > maxDepth) {
+    if (maxDepth && ++depth > maxDepth) {
         [self addErrorWithCode:EDEPTH description: @"Nested too deep"];
         return NO;
     }
@@ -204,7 +204,7 @@ static char ctrl[0x22];
         id v;
         
         skipWhitespace(c);
-        if (*c == ']' && c***REMOVED******REMOVED***) {
+        if (*c == ']' && c++) {
             depth--;
             return YES;
         }
@@ -217,7 +217,7 @@ static char ctrl[0x22];
         [*o addObject:v];
         
         skipWhitespace(c);
-        if (*c == ',' && c***REMOVED******REMOVED***) {
+        if (*c == ',' && c++) {
             skipWhitespace(c);
             if (*c == ']') {
                 [self addErrorWithCode:ETRAILCOMMA description: @"Trailing comma disallowed in array"];
@@ -232,7 +232,7 @@ static char ctrl[0x22];
 
 - (BOOL)scanRestOfDictionary:(NSMutableDictionary **)o 
 {
-    if (maxDepth && ***REMOVED******REMOVED***depth > maxDepth) {
+    if (maxDepth && ++depth > maxDepth) {
         [self addErrorWithCode:EDEPTH description: @"Nested too deep"];
         return NO;
     }
@@ -243,12 +243,12 @@ static char ctrl[0x22];
         id k, v;
         
         skipWhitespace(c);
-        if (*c == '}' && c***REMOVED******REMOVED***) {
+        if (*c == '}' && c++) {
             depth--;
             return YES;
         }    
         
-        if (!(*c == '\"' && c***REMOVED******REMOVED*** && [self scanRestOfString:&k])) {
+        if (!(*c == '\"' && c++ && [self scanRestOfString:&k])) {
             [self addErrorWithCode:EPARSE description: @"Object key string expected"];
             return NO;
         }
@@ -259,7 +259,7 @@ static char ctrl[0x22];
             return NO;
         }
         
-        c***REMOVED******REMOVED***;
+        c++;
         if (![self scanValue:&v]) {
             NSString *string = [NSString stringWithFormat:@"Object value expected for key: %@", k];
             [self addErrorWithCode:EPARSE description: string];
@@ -269,7 +269,7 @@ static char ctrl[0x22];
         [*o setObject:v forKey:k];
         
         skipWhitespace(c);
-        if (*c == ',' && c***REMOVED******REMOVED***) {
+        if (*c == ',' && c++) {
             skipWhitespace(c);
             if (*c == '}') {
                 [self addErrorWithCode:ETRAILCOMMA description: @"Trailing comma disallowed in object"];
@@ -286,10 +286,10 @@ static char ctrl[0x22];
 {
     // if the string has no control characters in it, return it in one go, without any temporary allocations.
     size_t len = strcspn(c, ctrl);
-    if (len && *(c ***REMOVED*** len) == '\"')
+    if (len && *(c + len) == '\"')
     {
         *o = [[NSMutableString alloc] initWithBytes:(char*)c length:len encoding:NSUTF8StringEncoding];
-        c ***REMOVED***= len ***REMOVED*** 1;
+        c += len + 1;
         return YES;
     }
     
@@ -306,16 +306,16 @@ static char ctrl[0x22];
                                             freeWhenDone:NO];
             if (t) {
                 [*o appendString:t];
-                c ***REMOVED***= len;
+                c += len;
             }
         }
         
         if (*c == '"') {
-            c***REMOVED******REMOVED***;
+            c++;
             return YES;
             
         } else if (*c == '\\') {
-            unichar uc = ****REMOVED******REMOVED***c;
+            unichar uc = *++c;
             switch (uc) {
                 case '\\':
                 case '/':
@@ -329,7 +329,7 @@ static char ctrl[0x22];
                 case 'f':   uc = '\f';  break;                    
                     
                 case 'u':
-                    c***REMOVED******REMOVED***;
+                    c++;
                     if (![self scanUnicodeChar:&uc]) {
                         [self addErrorWithCode:EUNICODE description: @"Broken unicode character"];
                         return NO;
@@ -342,7 +342,7 @@ static char ctrl[0x22];
                     break;
             }
             CFStringAppendCharacters((CFMutableStringRef)*o, &uc, 1);
-            c***REMOVED******REMOVED***;
+            c++;
             
         } else if (*c < 0x20) {
             [self addErrorWithCode:ECTRL description: [NSString stringWithFormat:@"Unescaped control character '0x%x'", *c]];
@@ -369,7 +369,7 @@ static char ctrl[0x22];
     if (hi >= 0xd800) {     // high surrogate char?
         if (hi < 0xdc00) {  // yes - expect a low char
             
-            if (!(*c == '\\' && ***REMOVED******REMOVED***c && *c == 'u' && ***REMOVED******REMOVED***c && [self scanHexQuad:&lo])) {
+            if (!(*c == '\\' && ++c && *c == 'u' && ++c && [self scanHexQuad:&lo])) {
                 [self addErrorWithCode:EUNICODE description: @"Missing low character in surrogate pair"];
                 return NO;
             }
@@ -379,7 +379,7 @@ static char ctrl[0x22];
                 return NO;
             }
             
-            hi = (hi - 0xd800) * 0x400 ***REMOVED*** (lo - 0xdc00) ***REMOVED*** 0x10000;
+            hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
             
         } else if (hi < 0xe000) {
             [self addErrorWithCode:EUNICODE description:@"Invalid high character in surrogate pair"];
@@ -394,19 +394,19 @@ static char ctrl[0x22];
 - (BOOL)scanHexQuad:(unichar *)x
 {
     *x = 0;
-    for (int i = 0; i < 4; i***REMOVED******REMOVED***) {
+    for (int i = 0; i < 4; i++) {
         unichar uc = *c;
-        c***REMOVED******REMOVED***;
+        c++;
         int d = (uc >= '0' && uc <= '9')
         ? uc - '0' : (uc >= 'a' && uc <= 'f')
-        ? (uc - 'a' ***REMOVED*** 10) : (uc >= 'A' && uc <= 'F')
-        ? (uc - 'A' ***REMOVED*** 10) : -1;
+        ? (uc - 'a' + 10) : (uc >= 'A' && uc <= 'F')
+        ? (uc - 'A' + 10) : -1;
         if (d == -1) {
             [self addErrorWithCode:EUNICODE description:@"Missing hex digit in quad"];
             return NO;
         }
         *x *= 16;
-        *x ***REMOVED***= d;
+        *x += d;
     }
     return YES;
 }
@@ -422,9 +422,9 @@ static char ctrl[0x22];
     // (Available at the CPAN: http://search.cpan.org/dist/JSON-XS/ .)
     
     if ('-' == *c)
-        c***REMOVED******REMOVED***;
+        c++;
     
-    if ('0' == *c && c***REMOVED******REMOVED***) {        
+    if ('0' == *c && c++) {        
         if (isdigit(*c)) {
             [self addErrorWithCode:EPARSENUM description: @"Leading 0 disallowed in number"];
             return NO;
@@ -439,7 +439,7 @@ static char ctrl[0x22];
     }
     
     // Fractional part
-    if ('.' == *c && c***REMOVED******REMOVED***) {
+    if ('.' == *c && c++) {
         simple = NO;
         if (!isdigit(*c)) {
             [self addErrorWithCode:EPARSENUM description: @"No digits after decimal point"];
@@ -451,10 +451,10 @@ static char ctrl[0x22];
     // Exponential part
     if ('e' == *c || 'E' == *c) {
         simple = NO;
-        c***REMOVED******REMOVED***;
+        c++;
         
-        if ('-' == *c || '***REMOVED***' == *c)
-            c***REMOVED******REMOVED***;
+        if ('-' == *c || '+' == *c)
+            c++;
         
         if (!isdigit(*c)) {
             [self addErrorWithCode:EPARSENUM description: @"No digits after exponent"];
@@ -472,17 +472,17 @@ static char ctrl[0x22];
         
         if (*d == '-') {
             negate = YES;
-            d***REMOVED******REMOVED***;
+            d++;
         }
         
         while (isdigit(*d)) {
             val *= 10;
             if (val < 0)
                 goto longlong_overflow;
-            val ***REMOVED***= *d - '0';
+            val += *d - '0';
             if (val < 0)
                 goto longlong_overflow;
-            d***REMOVED******REMOVED***;
+            d++;
         }
         
         *o = [NSNumber numberWithLongLong:negate ? -val : val];

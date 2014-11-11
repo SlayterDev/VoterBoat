@@ -42,7 +42,7 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
 @synthesize enabled = _enabled;
 @dynamic networkActivityIndicatorVisible;
 
-***REMOVED*** (instancetype)sharedManager {
++ (instancetype)sharedManager {
     static AFNetworkActivityIndicatorManager *_sharedManager = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
@@ -52,7 +52,7 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
     return _sharedManager;
 }
 
-***REMOVED*** (NSSet *)keyPathsForValuesAffectingIsNetworkActivityIndicatorVisible {
++ (NSSet *)keyPathsForValuesAffectingIsNetworkActivityIndicatorVisible {
     return [NSSet setWithObject:@"activityCount"];
 }
 
@@ -114,7 +114,7 @@ static NSTimeInterval const kAFNetworkActivityIndicatorInvisibilityDelay = 0.17;
 - (void)incrementActivityCount {
     [self willChangeValueForKey:@"activityCount"];
 	@synchronized(self) {
-		_activityCount***REMOVED******REMOVED***;
+		_activityCount++;
 	}
     [self didChangeValueForKey:@"activityCount"];
     
