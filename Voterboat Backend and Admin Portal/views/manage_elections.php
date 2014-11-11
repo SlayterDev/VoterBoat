@@ -72,7 +72,7 @@
                                         if ($isAdmin)
                                         {
                                         echo '<a href="manage_candidates.php?id='.$results['election_id'].'"><input type="button" class="form_btn" value="Candidates" style="width: 90px; height: 30px; font-size: 12pt; background-color: #3498db;" /></a>';
-                                            if ($results['open'] == 'F')
+                                            if ($results['open'] == 'F' || $results['open'] == 'U')
                                             echo '
                                             <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to open this election?\')">
                                                     <input type="submit" name="open" class="form_btn" value="Open" style="width: 90px; height: 30px; font-size: 12pt;" />

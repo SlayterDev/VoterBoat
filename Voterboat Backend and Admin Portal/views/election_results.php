@@ -52,7 +52,7 @@
                     {
                         $getUserInfo = mysql_query("SELECT * FROM users WHERE user_id='".$results['user_id']."'");
                         $userInfo = mysql_fetch_array($getUserInfo);
-                        $getVoteCount = mysql_query("SELECT * FROM votes WHERE election_id='".$id."' AND candidate_id='".$results['user_id']."'");
+                        $getVoteCount = mysql_query("SELECT * FROM votes WHERE election_id='".$id."' AND candidate_id='".$results['candidate_id']."'");
                         $voteCount = mysql_num_rows($getVoteCount);
                         $getTotalVoteCount = mysql_query("SELECT * FROM votes WHERE election_id='".$id."'");
                         $totalVoteCount = mysql_num_rows($getTotalVoteCount);

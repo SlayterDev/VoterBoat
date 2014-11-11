@@ -23,6 +23,12 @@
         $user_id = mysql_escape_string($_POST['user_id']);
         $removeAdmin = mysql_query("DELETE FROM users WHERE user_id='".$user_id."'");
     }
+    
+    if (isset($_POST['approve']))
+    {
+        $user_id = mysql_escape_string($_POST['user_id']);
+        $accept = mysql_query("UPDATE users SET status='Approved' WHERE user_id='".$user_id."'");
+    }
 ?>
 
 <!doctype html>
@@ -41,14 +47,15 @@
     </div>
     <div id="container">
         <center>
-            <span style="display: block; margin-top: 20px; font-size: 18pt; margin-bottom: 30px;">Manage Monitors</span>
+            <span style="display: block; margin-top: 20px; font-size: 18pt; margin-bottom: 30px;">Manage Pending Students
+            </span>
             <table style="width: 580px;" cellpadding="1" cellspacing="0" bgcolor="#F5F5F5" border="1" bordercolor="#E5E5E5">
                 <tr style="border: 1px solid #E5E5E5;">
                     <th style="padding-top: 10px; padding-bottom: 10px;">User Name</th>
                     <th style="padding-top: 10px; padding-bottom: 10px;">Actions</th>
                 </tr>
                 <?php
-                    $getAdmins = mysql_query("SELECT * FROM users WHERE permissions='Monitor'");
+                    $getAdmins = mysql_query("SELECT * FROM users WHERE permissions='Student' AND status='Pending'");
                     while ($results = mysql_fetch_array($getAdmins))
                     {
                         echo    '<tr>
@@ -56,8 +63,12 @@
                                         '.$results['user_name'].'
                                     </td>
                                     <td align="center">
-                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to remove this admin?\')">
-                                            <input type="submit" name="submit" class="form_btn" value="Remove" style="width: 80px; height: 30px; font-size: 12pt; background-color: #e74c3c;" />
+                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to approve this student?\')">
+                                            <input type="submit" name="approve" class="form_btn" value="Approve" style="width: 80px; height: 30px; font-size: 12pt; background-color: #2ecc71;" />
+                                            <input type="hidden" value="'.$results['user_id'].'" name="user_id" />
+                                        </form>
+                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to deny this student?\')">
+                                            <input type="submit" name="submit" class="form_btn" value="Deny" style="width: 80px; height: 30px; font-size: 12pt; background-color: #e74c3c;" />
                                             <input type="hidden" value="'.$results['user_id'].'" name="user_id" />
                                         </form>
                                     </td>
@@ -67,7 +78,7 @@
                     {
                         echo '<tr>
                                 <td align="center" colspan="2" style="height: 50px;">
-                                    No Monitors Found
+                                    No Students Found
                                 </td>
                               </tr>';
                     }

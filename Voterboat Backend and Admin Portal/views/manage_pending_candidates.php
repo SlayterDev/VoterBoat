@@ -62,6 +62,7 @@
                                         <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to approve this candidate?\')">
                                             <input type="submit" name="approve" class="form_btn" value="Approve" style="width: 80px; height: 30px; font-size: 12pt;" />
                                             <input type="hidden" value="'.$userInfo['user_id'].'" name="user_id" />
+                                            <input type="hidden" value="'.$id.'" name="election_id" />
                                         </form>
                                         <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to deny this candidate?\')">
                                             <input type="submit" name="deny" class="form_btn" value="Deny" style="width: 80px; height: 30px; font-size: 12pt; background-color: #e74c3c;" />

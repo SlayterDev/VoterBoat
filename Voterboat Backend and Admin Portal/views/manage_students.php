@@ -13,7 +13,7 @@
     // make sure user is admin
     $checkIfMaster = mysql_query("SELECT permissions FROM users WHERE user_id='".$_SESSION['user_id']."'");
     $results = mysql_fetch_array($checkIfMaster);
-    if ($results['permissions'] != 'Master' || $results['permissions'] != 'Admin')
+    if ($results['permissions'] != 'Master' && $results['permissions'] != 'Admin')
     {
         header("Location: home.php");
     }
@@ -43,13 +43,14 @@
         <center>
             <span style="display: block; margin-top: 20px; font-size: 18pt; margin-bottom: 30px;">Manage Students
             </span>
+            <a href="manage_pending_students.php"><input type="button" class="form_btn" value="Pending Students" style="margin-bottom: 30px;" /></a>
             <table style="width: 580px;" cellpadding="1" cellspacing="0" bgcolor="#F5F5F5" border="1" bordercolor="#E5E5E5">
                 <tr style="border: 1px solid #E5E5E5;">
                     <th style="padding-top: 10px; padding-bottom: 10px;">User Name</th>
                     <th style="padding-top: 10px; padding-bottom: 10px;">Actions</th>
                 </tr>
                 <?php
-                    $getAdmins = mysql_query("SELECT * FROM users WHERE permissions='Student'");
+                    $getAdmins = mysql_query("SELECT * FROM users WHERE permissions='Student' AND status='Approved'");
                     while ($results = mysql_fetch_array($getAdmins))
                     {
                         echo    '<tr>
@@ -57,7 +58,7 @@
                                         '.$results['user_name'].'
                                     </td>
                                     <td align="center">
-                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to remove this admin?\')">
+                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to remove this student?\')">
                                             <input type="submit" name="submit" class="form_btn" value="Remove" style="width: 80px; height: 30px; font-size: 12pt; background-color: #e74c3c;" />
                                             <input type="hidden" value="'.$results['user_id'].'" name="user_id" />
                                         </form>

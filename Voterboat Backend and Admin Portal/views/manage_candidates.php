@@ -46,7 +46,7 @@
                     <th style="padding-top: 10px; padding-bottom: 10px;">Actions</th>
                 </tr>
                 <?php
-                    $getCandidates = mysql_query("SELECT * FROM candidates WHERE election_id='".$election_id."'");
+                    $getCandidates = mysql_query("SELECT * FROM candidates WHERE election_id='".$election_id."' AND status='Approved'");
                     while ($results = mysql_fetch_array($getCandidates))
                     {
                         $getUserInfo = mysql_query("SELECT * FROM users WHERE user_id='".$results['user_id']."'");

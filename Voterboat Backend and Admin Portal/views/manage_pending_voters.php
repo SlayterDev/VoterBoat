@@ -13,7 +13,7 @@
     // make sure user is admin
     $checkIfMaster = mysql_query("SELECT permissions FROM users WHERE user_id='".$_SESSION['user_id']."'");
     $results = mysql_fetch_array($checkIfMaster);
-    if ($results['permissions'] != 'Master' || $results['permissions'] != 'Admin')
+    if ($results['permissions'] != 'Master' && $results['permissions'] != 'Admin')
     {
         header("Location: home.php");
     }
@@ -21,13 +21,15 @@
     if (isset($_POST['approve']))
     {
         $user_id = mysql_escape_string($_POST['user_id']);
-        $approveUsers = mysql_query("UPDATE users SET status='Approved' WHERE user_id='".$user_id."'");
+        $election_id = mysql_escape_string($_POST['election_id']);
+        $approveUsers = mysql_query("UPDATE voters SET status='Accepted' WHERE user_id='".$user_id."' AND election_id='".$election_id."'");
     }
     
     if (isset($_POST['deny']))
     {
         $user_id = mysql_escape_string($_POST['user_id']);
-        $denyUser = mysql_query("DELETE FROM users WHERE user_id='".$user_id."'");
+        $election_id = mysql_escape_string($_POST['election_id']);
+        $denyUser = mysql_query("DELETE FROM voters WHERE user_id='".$user_id."' AND election_id='".$election_id."'");
     }
 ?>
 
@@ -54,21 +56,25 @@
                     <th style="padding-top: 10px; padding-bottom: 10px;">Actions</th>
                 </tr>
                 <?php
-                    $getVoters = mysql_query("SELECT * FROM users WHERE permissions='Student' AND status='Pending'");
+                    $getVoters = mysql_query("SELECT * FROM voters WHERE status='Pending'");
                     while ($results = mysql_fetch_array($getVoters))
                     {
+                        $studentInfo = mysql_query("SELECT * FROM users WHERE user_id='".$results['user_id']."'");
+                        $info = mysql_fetch_array($studentInfo);
                         echo    '<tr>
                                     <td style="height: 50px;" align="center">
-                                        '.$results['user_name'].'
+                                        '.$info['user_name'].'
                                     </td>
                                     <td align="center">
                                     <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to approve this voter?\')">
                                             <input type="submit" name="approve" class="form_btn" value="Approve" style="width: 80px; height: 30px; font-size: 12pt;" />
-                                            <input type="hidden" value="'.$results['user_id'].'" name="user_id" />
+                                            <input type="hidden" value="'.$info['user_id'].'" name="user_id" />
+                                            <input type="hidden" value="'.$results['election_id'].'" name="election_id" />
                                         </form>
-                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to deny this voter? Performing this action will remove the user from the Voterboat system.\')">
+                                        <form method="POST" action="" style="display: inline;" onsubmit="return confirm(\'Are you sure you want to deny this voter?\')">
                                             <input type="submit" name="deny" class="form_btn" value="Deny" style="width: 80px; height: 30px; font-size: 12pt; background-color: #e74c3c;" />
-                                            <input type="hidden" value="'.$results['user_id'].'" name="user_id" />
+                                            <input type="hidden" value="'.$info['user_id'].'" name="user_id" />
+                                            <input type="hidden" value="'.$results['election_id'].'" name="election_id" />
                                         </form>
                                     </td>
                                 </tr>';

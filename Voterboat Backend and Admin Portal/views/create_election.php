@@ -14,7 +14,7 @@
     // make sure user is admin
     $checkIfMaster = mysql_query("SELECT permissions FROM users WHERE user_id='".$_SESSION['user_id']."'");
     $results = mysql_fetch_array($checkIfMaster);
-    if ($results['permissions'] != 'Master' || $results['permissions'] != 'Admin')
+    if ($results['permissions'] != 'Master' && $results['permissions'] != 'Admin')
     {
         header("Location: home.php");
     }
