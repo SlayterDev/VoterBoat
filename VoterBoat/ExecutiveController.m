@@ -260,6 +260,7 @@
         controller.picture = 0;
         controller.branch = self.tabBarItem.title;
         controller.electionID = [[[elections objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
+		controller.name = [[elections objectAtIndex:indexPath.row] objectForKey:@"name"];
 		
 		if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
 			controller.open = YES;

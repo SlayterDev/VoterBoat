@@ -201,11 +201,14 @@
                 NSLog(@"%@", responseStr);
                 if ([response objectForKey:@"did_succeed"])
                 {
-                    [defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
-                    [defaults setObject:@"YES" forKey:@"is_logged_in"];
-                    UITabBarController *tabbar = [[UITabBarController alloc] init];
+                    //[defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
+                    //[defaults setObject:@"YES" forKey:@"is_logged_in"];
+                    /*UITabBarController *tabbar = [[UITabBarController alloc] init];
                     [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain], [[UINavigationController alloc] initWithRootViewController:[[SettingsView alloc] initWithStyle:UITableViewStyleGrouped]]]];
-                    [self presentViewController:tabbar animated:YES completion:nil];
+                    [self presentViewController:tabbar animated:YES completion:nil];*/
+					
+					[[[UIAlertView alloc] initWithTitle:@"Registered" message:@"You have been registered, you must be approved before logging in." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+					[self dismissViewControllerAnimated:YES completion:nil];
                 }
                 else
                 {
@@ -252,7 +255,7 @@
                 [defaults setObject:[response objectForKey:@"user_id"] forKey:@"user_id"];
                 [defaults setObject:@"YES" forKey:@"is_logged_in"];
                 UITabBarController *tabbar = [[UITabBarController alloc] init];
-                [tabbar setViewControllers:@[[[CandidatesController alloc] initWithStyle:UITableViewStylePlain], [[LegislationController alloc] initWithStyle:UITableViewStylePlain], [[ExecutiveController alloc] initWithStyle:UITableViewStylePlain], [[UINavigationController alloc] initWithRootViewController:[[SettingsView alloc] initWithStyle:UITableViewStyleGrouped]]]];
+                [tabbar setViewControllers:@[[[UINavigationController alloc] initWithRootViewController:[[CandidatesController alloc] initWithStyle:UITableViewStylePlain]], [[UINavigationController alloc] initWithRootViewController:[[LegislationController alloc] initWithStyle:UITableViewStylePlain]], [[UINavigationController alloc] initWithRootViewController:[[ExecutiveController alloc] initWithStyle:UITableViewStylePlain]], [[UINavigationController alloc] initWithRootViewController:[[SettingsView alloc] initWithStyle:UITableViewStyleGrouped]]]];
                 [self presentViewController:tabbar animated:YES completion:nil];
             }
             else

@@ -59,7 +59,7 @@
 
 - (void)vote
 {
-	UIAlertController *confirm = [UIAlertController alertControllerWithTitle:@"Are You Sure?" message:[NSString stringWithFormat:@"Are you sure you want to vote for %@?", self.user_name] preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertController *confirm = [UIAlertController alertControllerWithTitle:@"Are You Sure?" message:[NSString stringWithFormat:@"Are you sure you want to vote for %@, %d, %d?", self.user_name, self.user_id, self.election_id] preferredStyle:UIAlertControllerStyleAlert];
 	
 	UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		
@@ -70,7 +70,7 @@
 		NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
 		AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-		NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"vote_candidate", @"method", [defaults objectForKey:@"user_id"], @"user_id", [NSString stringWithFormat:@"%d", self.election_id], @"election_id", [NSString stringWithFormat:@"%d", self.user_id], @"candidate_id", nil];
+		NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"vote_candidate", @"method", [defaults objectForKey:@"user_id"], @"user_id", [NSString stringWithFormat:@"%d", self.election_id], @"election_id", [NSString stringWithFormat:@"%d", self.candidate_id], @"candidate_id", nil];
 		[httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 			[DejalActivityView removeView];
 			NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

@@ -17,5 +17,6 @@
 @property (nonatomic, strong) NSString *branch;
 @property (nonatomic, assign) int electionID;
 @property (nonatomic, assign) BOOL open;
+@property (nonatomic, strong) NSString *name;
 
 @end

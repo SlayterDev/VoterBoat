@@ -48,7 +48,7 @@
 	iv.contentMode = UIViewContentModeScaleAspectFill;
 	[self.view addSubview:iv];
     
-    self.title = @"Candidates";
+    self.title = self.name;
 	
 	UIView *view = [[UIView alloc] initWithFrame:iv.frame];
 	view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.19];
@@ -141,7 +141,12 @@
 	UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 	
-	cell.textLabel.text = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
+	NSString *str = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
+	
+	if (![[[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"] isKindOfClass:[NSNull class]])
+		cell.textLabel.text = str;
+	else
+		cell.textLabel.text = @"NULL";
 	
 	UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-30, 0, cell.frame.size.height+30, 60.0f)];
     lbl.text = @"Info";
@@ -166,8 +171,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CandidateProfileController *newView = [[CandidateProfileController alloc] initWithNibName:nil bundle:nil];
-	newView.election_id = [[[candidates objectAtIndex:indexPath.row] objectForKey:@"election_id"] intValue];
+	newView.election_id = self.electionID;
     newView.user_id = [[[candidates objectAtIndex:indexPath.row] objectForKey:@"user_id"] intValue];
+	newView.candidate_id = [[[candidates objectAtIndex:indexPath.row] objectForKey:@"candidate_id"] intValue];
     newView.user_name = [[candidates objectAtIndex:indexPath.row] objectForKey:@"user_name"];
 	newView.open = self.open;
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:newView];
