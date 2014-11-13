@@ -81,7 +81,8 @@
 		NSLog(@"%@", responseStr);
 		if ([response objectForKey:@"did_succeed"])
 		{
-			tv.text = [response objectForKey:@"bio"];
+			if (![[response objectForKey:@"bio"] isKindOfClass:[NSNull class]])
+				tv.text = [response objectForKey:@"bio"];
 		}
 		else
 		{
