@@ -59,7 +59,7 @@
 
 - (void)vote
 {
-	UIAlertController *confirm = [UIAlertController alertControllerWithTitle:@"Are You Sure?" message:[NSString stringWithFormat:@"Are you sure you want to vote for %@, %d, %d?", self.user_name, self.user_id, self.election_id] preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertController *confirm = [UIAlertController alertControllerWithTitle:@"Are You Sure?" message:[NSString stringWithFormat:@"Are you sure you want to vote for %@?", self.user_name] preferredStyle:UIAlertControllerStyleAlert];
 	
 	UIAlertAction *yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 		
