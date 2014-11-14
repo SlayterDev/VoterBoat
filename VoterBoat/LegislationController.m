@@ -143,6 +143,58 @@
     
     cell.textLabel.text = [[elections objectAtIndex:indexPath.row] objectForKey:@"name"];
     
+    if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"])
+    {
+        // Handle Time
+        long remainingTime = (([[[elections objectAtIndex:indexPath.row] objectForKey:@"delete_time"] longLongValue]) - (long)[[NSDate date] timeIntervalSince1970]);
+        int secondsInAMinute = 60;
+        int secondsInAnHour  = 60 * secondsInAMinute;
+        int secondsInADay    = 24 * secondsInAnHour;
+        int secondsInAWeek   = 7 * secondsInADay;
+        int secondsInAMonth  = 30 * secondsInADay;
+        
+        // Extract months
+        int months = floor(remainingTime / secondsInAMonth);
+        // Extract weeks
+        int weeks = floor(remainingTime / secondsInAWeek);
+        // Extract days
+        int days = floor(remainingTime / secondsInADay);
+        // Extract hours
+        int hours = floor(remainingTime / secondsInAnHour);
+        // Extract minutes
+        int minutes = floor(remainingTime / secondsInAMinute);
+        // Extract the remaining seconds
+        int mySeconds = floor(remainingTime);
+        
+        if (months > 0)
+        {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%iM Remaining", months];
+        }
+        else if (weeks > 0)
+        {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%iw Remaining", weeks];
+        }
+        else if (days > 0)
+        {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%id Remaining", days];
+        }
+        else if (hours > 0)
+        {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ih Remaining", hours];
+        }
+        else if (minutes > 0)
+        {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%im Remaining", minutes];
+        }
+        else if (mySeconds > 0)
+        {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%is Remaining", mySeconds];
+        }
+    }
+    else
+        cell.detailTextLabel.text = @"";
+
+    
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.size.width - cell.frame.size.height-50, 0, cell.frame.size.height+50, 60.0f)];
     if ([[[elections objectAtIndex:indexPath.row] objectForKey:@"open"] isEqualToString:@"T"] && [[[elections objectAtIndex:indexPath.row] objectForKey:@"is_registered"] isEqualToString:@"T"])
         lbl.text = @"Vote";
