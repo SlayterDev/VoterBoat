@@ -41,6 +41,13 @@
 		default:
 			break;
 	}
+    
+    UIBarButtonItem *writeIn = [[UIBarButtonItem alloc] initWithTitle:@"Write In" style:UIBarButtonItemStylePlain target:self action:@selector(writeIn)];
+    if (!self.open)
+        writeIn.enabled = NO;
+    else
+        writeIn.enabled = YES;
+    self.navigationItem.rightBarButtonItem = writeIn;
 	
 	[self.tableView setContentInset:UIEdgeInsetsMake(260, 0, 0, 0)];
 	UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:path]];
@@ -64,6 +71,53 @@
 	
 	self.tableView.backgroundColor = [UIColor colorWithRed:218.0/255.0 green:223.0/255.0 blue:225.0/255.0 alpha:1.0];
 	[self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+- (void)writeIn
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Write In" message:@"Enter a name" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.tag = -100;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == -100 && buttonIndex == 1)
+    {
+        // make api call
+        UITextField *textField = [alertView textFieldAtIndex:0];
+        
+        [DejalBezelActivityView activityViewForView:self.view withLabel:@""];
+        [DejalActivityView currentActivityView].showNetworkActivityIndicator = YES;
+        
+        NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
+        AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"elections", @"controller", @"vote_write_in", @"method", [NSString stringWithFormat:@"%d", self.electionID], @"election_id", [defaults objectForKey:@"user_id"], @"user_id", textField.text, @"name", nil];
+        [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [DejalActivityView removeView];
+            NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            SBJsonParser *parser = [[SBJsonParser alloc] init];
+            NSDictionary *response = [parser objectWithString:responseStr];
+            NSLog(@"%@", responseStr);
+            if ([response objectForKey:@"did_succeed"])
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Success" message:[NSString stringWithFormat:@"You have successfully voted for %@", textField.text] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Error %@", [response objectForKey:@"err_code"]] message:[response objectForKey:@"err_msg"] delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil];
+                [alert show];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            /* dispatch_async(dispatch_get_main_queue(), ^{
+             [errors addObject:@"94"];
+             [self checkStatus];
+             });*/
+        }];
+
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
