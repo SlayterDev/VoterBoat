@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-@interface VoterBoatTests : XCTestCase
+@interface VoterBoatTests : XCTestCase {
+	BOOL passwordsMatch;
+	BOOL didLogIn;
+	BOOL loadedElections;
+	BOOL uploadedProfile;
+}
+
+
 
 @end
 
@@ -23,6 +30,22 @@
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
+}
+
+-(void) testPasswordsMatch {
+	XCTAssertTrue(passwordsMatch);
+}
+
+-(void) testDidLogIn {
+	XCTAssertTrue(didLogIn);
+}
+
+-(void) testLoadedElections {
+	XCTAssertTrue(loadedElections);
+}
+
+-(void) testUploadedProfile {
+	XCTAssertTrue(uploadedProfile);
 }
 
 - (void)testExample {
