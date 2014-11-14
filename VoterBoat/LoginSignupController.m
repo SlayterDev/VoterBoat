@@ -59,7 +59,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if (!_signup)
-		return 5;
+		return 7;
 	else
 		return 2;
 }
@@ -90,13 +90,25 @@
 			// College selction
 			tf = [self createTextFieldWithPlaceholder:@"College"];
 			picker = [self createPickerView];
+			picker.tag = 0;
 			tf.inputView = picker;
 			collegeField = tf;
 			break;
 		case 3:
-			tf = [self createTextFieldWithPlaceholder:@"Password"];
+			tf = [self createTextFieldWithPlaceholder:@"Email"];
+			tf.keyboardType = UIKeyboardTypeEmailAddress;
 			break;
 		case 4:
+			tf = [self createTextFieldWithPlaceholder:@"Gender"];
+			picker = [self createPickerView];
+			picker.tag = 1;
+			tf.inputView = picker;
+			genderField = tf;
+			break;
+		case 5:
+			tf = [self createTextFieldWithPlaceholder:@"Password"];
+			break;
+		case 6:
 			tf = [self createTextFieldWithPlaceholder:@"Confirm Password"];
 			break;
 		default:
@@ -144,12 +156,20 @@
 }
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	collegeField.text = [colleges objectAtIndex:row];
-	[self goToNextField:collegeField];
+	if (pickerView.tag == 0) {
+		collegeField.text = [colleges objectAtIndex:row];
+		[self goToNextField:collegeField];
+	} else {
+		genderField.text = (row) ? @"female" : @"male";
+		[self goToNextField:genderField];
+	}
 }
 
 -(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-	return colleges.count;
+	if (pickerView.tag == 0)
+		return colleges.count;
+	else
+		return 2;
 }
 
 -(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -157,7 +177,10 @@
 }
 
 -(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	return [colleges objectAtIndex:row];
+	if (pickerView.tag == 0)
+		return [colleges objectAtIndex:row];
+	else
+		return (row) ? @"Female" : @"Male";
 }
 
 -(void) goToNextField:(id)sender {
@@ -181,8 +204,10 @@
 		UITextField *user_name = [fields objectAtIndex:0];
 		UITextField *student_id = [fields objectAtIndex:1];
         UITextField *college = [fields objectAtIndex:2];
-        UITextField *password = [fields objectAtIndex:3];
-        UITextField *password2 = [fields objectAtIndex:4];
+		UITextField *email = [fields objectAtIndex:3];
+		UITextField *gender = [fields objectAtIndex:4];
+        UITextField *password = [fields objectAtIndex:5];
+        UITextField *password2 = [fields objectAtIndex:6];
         
         if ([password.text isEqualToString:password2.text])
         {
@@ -192,7 +217,7 @@
             NSUserDefaults *defaults = [[NSUserDefaults alloc] init];
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/API.php", [defaults objectForKey:@"api_url"]]];
             AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"users", @"controller", @"create_account", @"method", user_name.text, @"user_name", student_id.text, @"student_id", password.text, @"password", college.text, @"college", nil];
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"users", @"controller", @"create_account", @"method", user_name.text, @"user_name", student_id.text, @"student_id", password.text, @"password", college.text, @"college", email.text, @"email", gender.text, @"gender", nil];
             [httpClient postPath:[defaults objectForKey:@"apiFile"] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 [DejalActivityView removeView];
                 NSString *responseStr = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

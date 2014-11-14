@@ -15,6 +15,7 @@
 	NSMutableArray *fields;
 	NSArray *colleges;
 	UITextField *collegeField;
+	UITextField *genderField;
 }
 
 @property (assign, nonatomic) BOOL signup;
