@@ -38,6 +38,8 @@
 		02B788D819FFEAB0000CD7B5 /* settings-75.png in Resources */ = {isa = PBXBuildFile; fileRef = 02B788D619FFEAB0000CD7B5 /* settings-75.png */; };
 		02E4135B19CB3B2E005A4DEF /* 1289493_21101753.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */; };
 		A955FEBA19FF3FD9009EBB93 /* CandidateProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */; };
+		DB009AC21A1BA9D400D58D3E /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB009AC11A1BA9D400D58D3E /* Social.framework */; };
+		DB009AC41A1BAE6500D58D3E /* sticker.png in Resources */ = {isa = PBXBuildFile; fileRef = DB009AC31A1BAE6500D58D3E /* sticker.png */; };
 		DB2CF42F19E6E0230092DF79 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF41D19E6E0230092DF79 /* AFHTTPClient.m */; };
 		DB2CF43019E6E0230092DF79 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF41F19E6E0230092DF79 /* AFHTTPRequestOperation.m */; };
 		DB2CF43119E6E0230092DF79 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DB2CF42119E6E0230092DF79 /* AFImageRequestOperation.m */; };
@@ -110,6 +112,8 @@
 		02E4135A19CB3B2E005A4DEF /* 1289493_21101753.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1289493_21101753.jpg; sourceTree = "<group>"; };
 		A955FEB819FF3FD9009EBB93 /* CandidateProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CandidateProfileController.h; sourceTree = "<group>"; };
 		A955FEB919FF3FD9009EBB93 /* CandidateProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CandidateProfileController.m; sourceTree = "<group>"; };
+		DB009AC11A1BA9D400D58D3E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		DB009AC31A1BAE6500D58D3E /* sticker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sticker.png; sourceTree = "<group>"; };
 		DB2CF41C19E6E0230092DF79 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPClient.h; path = AFNetworking/AFHTTPClient.h; sourceTree = "<group>"; };
 		DB2CF41D19E6E0230092DF79 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPClient.m; path = AFNetworking/AFHTTPClient.m; sourceTree = "<group>"; };
 		DB2CF41E19E6E0230092DF79 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = AFNetworking/AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB009AC21A1BA9D400D58D3E /* Social.framework in Frameworks */,
 				02137C9019CB36FC00F3A61F /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,6 +171,7 @@
 		02137C5D19CB32B600F3A61F = {
 			isa = PBXGroup;
 			children = (
+				DB009AC11A1BA9D400D58D3E /* Social.framework */,
 				02137C8F19CB36FC00F3A61F /* QuartzCore.framework */,
 				02137C6819CB32B600F3A61F /* VoterBoat */,
 				02137C8219CB32B600F3A61F /* VoterBoatTests */,
@@ -256,6 +262,7 @@
 				0286148919DB012C00F235EF /* business-32@2x.png */,
 				0286148719DB011500F235EF /* brandenburg_gate-32@2x.png */,
 				0286148019DB00D100F235EF /* USA-White-House.jpg */,
+				DB009AC31A1BAE6500D58D3E /* sticker.png */,
 				0286148119DB00D100F235EF /* o-SUPREME-COURT-facebook.jpg */,
 				0286148219DB00D100F235EF /* 735561B2-EA29-4D18-9B75-F15714D7C7D0_mw1024_s_n.jpg */,
 				029DBC1319D46D8E008844E4 /* Pacifico.ttf */,
@@ -403,6 +410,7 @@
 				0286149019DB01CD00F235EF /* brandenburg_gate-32.png in Resources */,
 				029DBC1419D46D8E008844E4 /* Pacifico.ttf in Resources */,
 				0286148319DB00D100F235EF /* USA-White-House.jpg in Resources */,
+				DB009AC41A1BAE6500D58D3E /* sticker.png in Resources */,
 				0286148819DB011500F235EF /* brandenburg_gate-32@2x.png in Resources */,
 				0286148C19DB014D00F235EF /* law-32@2x.png in Resources */,
 				02137C7A19CB32B600F3A61F /* LaunchScreen.xib in Resources */,

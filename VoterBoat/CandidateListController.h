@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CandidateListController : UITableViewController <UIAlertViewDelegate> {
+@interface CandidateListController : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate> {
 	NSArray *colors;
 	NSMutableArray *candidates;
 }

@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "SBJsonParser.h"
 #import "DejalActivityView.h"
+#import <Social/Social.h>
 
 @interface CandidateProfileController ()
 
@@ -79,7 +80,9 @@
 			NSLog(@"%@", responseStr);
 			if ([response objectForKey:@"did_succeed"])
 			{
-				[[[UIAlertView alloc] initWithTitle:@"Success" message:[NSString stringWithFormat:@"You have successfully voted for %@", self.user_name] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share With Friends" delegate:self cancelButtonTitle:@"No Thanks" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
+                actionSheet.tag = 1;
+                [actionSheet showInView:self.view];
 			}
 			else
 			{
@@ -104,6 +107,45 @@
 	
 	
 	[self presentViewController:confirm animated:YES completion:nil];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag == 1)
+    {
+        if (buttonIndex == 0)
+        {
+            // Facebook
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+            {
+                SLComposeViewController *tweetSheet = [SLComposeViewController
+                                                       composeViewControllerForServiceType:SLServiceTypeFacebook];
+                [tweetSheet setInitialText:[NSString stringWithFormat:@"I just voted in the election \"%@\" on VoterBoat!", self.name]];
+                [tweetSheet addImage:[UIImage imageNamed:@"sticker.png"]];
+                [self presentViewController:tweetSheet animated:YES completion:nil];
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:@"You do not have any Facebook accounts associated with this device." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+            }
+        }
+        else if (buttonIndex == 1)
+        {
+            // Twitter
+            if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+            {
+                SLComposeViewController *tweetSheet = [SLComposeViewController
+                                                       composeViewControllerForServiceType:SLServiceTypeTwitter];
+                [tweetSheet setInitialText:[NSString stringWithFormat:@"I just voted in the election \"%@\" on VoterBoat!", self.name]];
+                [tweetSheet addImage:[UIImage imageNamed:@"sticker.png"]];
+                [self presentViewController:tweetSheet animated:YES completion:nil];
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Error" message:@"You do not have any Facebook accounts associated with this device." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
+            }
+        }
+    }
 }
 
 - (void)getBio

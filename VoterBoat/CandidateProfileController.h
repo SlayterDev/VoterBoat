@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CandidateProfileController : UIViewController
+@interface CandidateProfileController : UIViewController <UIActionSheetDelegate>
 {
     UITextView *bio;
 }
@@ -18,5 +18,6 @@
 @property (nonatomic, assign) int election_id;
 @property (strong, nonatomic) NSString *user_name;
 @property (nonatomic, assign) BOOL open;
+@property (strong, nonatomic) NSString *name;
 
 @end
