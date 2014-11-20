@@ -41,7 +41,7 @@
 	titleLbl.textColor = [UIColor whiteColor];
 	[self.view addSubview:titleLbl];
 	
-	colleges = @[@"College of Arts and Science", @"College of Business", @"Collge of Education", @"College of Engineering", @"College of Information", @"College of Merchandising", @"College of Music", @"College of Public Affaris", @"College of Visual Arts", @"School of Journalism", @"Honors College", @"TAMS", @"Toulouse Graduate School"];
+	colleges = @[@"College of Arts and Science", @"College of Business", @"College of Education", @"College of Engineering", @"College of Information", @"College of Merchandising", @"College of Music", @"College of Public Affaris", @"College of Visual Arts", @"School of Journalism", @"Honors College", @"TAMS", @"Toulouse Graduate School"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +84,7 @@
 			if (_signup)
 				tf = [self createTextFieldWithPlaceholder:@"Password"];
 			else
-				tf = [self createTextFieldWithPlaceholder:@"Student ID"];
+				tf = [self createTextFieldWithPlaceholder:@"Student EUID"];
 			break;
 		case 2:
 			// College selction
@@ -137,9 +137,6 @@
 	
 	if ([placeholder rangeOfString:@"Password"].location != NSNotFound)
 		tf.secureTextEntry = YES;
-	
-	if ([placeholder isEqualToString:@"Student ID"])
-		tf.keyboardType = UIKeyboardTypeNumberPad;
 	
 	
 	return tf;
